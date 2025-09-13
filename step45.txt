@@ -1,0 +1,15 @@
+Now we can set the NODE_ENV to "production" in the .env file and then check what Sevella will be doing on deploying there.
+
+Kill all terminals and in the main outer file path i.e. click outside all folders on sidebar and open terminal > delete the nod_modules of frontend and backend to make it look like how it is on git repository that Sevella will see too and then do > npm run build > installs the node_modules in both frontend and backend as per the package.json file in both of those folders > then do : npm run start > now if we go on "localhost:3000" we not sees server side but sees the react application there : its because we have made the frontend react app and backend API to come inside a single backend itself so that a single domain can be used for both frontend and backend here , as explained in step37.txt file in start there.
+
+So , now : we if do "localhost:3000/api/auth/login" and all we go to that API's response page , but in any other path we see the react application and not the ERROR page , because we had used the code ther ein server.js that - 
+
+if(process.env.NODE_ENV === "production") {
+
+    app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+
+    })
+}
+
+; so if any other path comes other than the endpoints mentioned ther ein server.js ; it sends the "index.html" i.e. the React application as the response there ; thats why we see React app in any other path other than the endpoints used in server.js file there.

@@ -1,0 +1,1 @@
+Push all changes to github and then its ready for deployment as Savella deployment website also was linked to github , so will read the repository , so push all changes there now.

@@ -1,0 +1,11 @@
+Now we went on Sevalla which is a deployment platform and we got $50 credits free , which we will use to deploy our website ; we can't use Netlify or Vercel as we will be using socket.io in our backend , which is not supported by Netlify or Vercel ; so we sign using github there now.
+
+For now in our application , we are running our backend on localhost:3000 and frontend on localhost:5173 ; so instead of deploying them seperately , we can serve the frontend from the backend itself ; so that using a single URL , we can server both API endpoints as well as our static assets which is our React application here.
+
+So click on the right sidebar i.e. not inside any folder but outside and then : in terminal type : npm init -y ; then here we will write scripts to prepare both frontend and backend for deployment; then we will kill temrinal aagin using dustbin button ; do : cd frontend > npm run build > to create a "dist" folder automatically with the optimized react app in it , production-ready react app comes in this "dist" folder here ; can delete this "dist" folder for now , can make anytime like this later too.
+
+Now sevalla website will take our github repository to deploy it , but it needs to have node_modules in both frontend and backend there ; so to make sevalla do that when deploying , we go on the package.json file created outside both frontend and backend there ; and write there : under scripts that - "build" : "npm install --prefix backend && npm install --prefix frontend" ; this made as we know npm install installs all the node_modules , so we make it install it inside both frontend and backend there , so used --prefix above there.
+
+But it also needs production ready react application so form it in the dist folder using npm run build after all the node_modules installed in both files there : so do : "build" : "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend" ; to run the npm run build under the frontend & then in next line there , write : "start" : "npm run start --prefix backend" to run the application under the backend as we have entry point as backend which will run the frontend too later indirectly.
+
+Now for the deployment now > we go in server.js file of backend and write some code to make it ready for deployment there ; so see next steps there now.

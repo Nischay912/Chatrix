@@ -10,6 +10,9 @@
 // step9: we can use the import statement instead of the require statement too , but for that we need to add "type" : "module" in the package.json file , so there under "keywords" : [] , type : "type" : "module" which is commonjs by default but now set to module as now we are using the import statement instead of the require statement.
 import express from 'express'
 
+// step39: path is already built in nodeJs , so we can import it directly now without installing it in terminal.
+import path from 'path'
+
 // step28: lets import the auth route file now to be able to use its endpoints below in this file here.
 import authRoutes from './routes/auth.route.js'
 
@@ -22,6 +25,9 @@ dotenv.config()
 
 // step5: then we create an instance of express below.
 const app = express()
+
+// step38: we first write this below ; path.resolve() returns the absolute path of the current working directory
+const __dirname = path.resolve()
 
 // step16: now lets see if the PORT is being accessed or not from the ".env" file.
 
@@ -50,6 +56,29 @@ app.use("/api/auth", authRoutes)
 
 // step32: now codebase has become very cleaner and now in the future we if want to create something related to messages , we cand o the same as above now below for it.
 app.use("/api/messages", messageRoutes)
+
+// step40: after all the API endpoints , we make it ready for deployment using the below codes -
+
+// step41: now we ensure following code runs only in production mode ; we tell express to serve static files like html , css , js using the ".static" middleware below ; then path.join : builds the absolute path to the folder containing your frontend build , containing directory name first and then the frontend's dist folder.
+
+// step42: we have places all in app.use so that : it adds this middleware to the whole app, so when someone visits your website, Express automatically serves the frontend files.
+if(process.env.NODE_ENV === "production") {
+
+    // step43: we have used ".." as we currently will be in backend folder as this server.js runs there ; so first "." moves us one out of backend in the main Chatrix folder and then using "./" we went in the frontend in the outermost place in the Chatrix folder here and then the "dist" folder.
+    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+
+    // step44: now if user makes request for any endpoint that hasn't been handled yet , then this below "*" catches it and sends the main frontend file which was index.html in the dist folder there ; so like if user makes request for /about page , and it hasn't been handled yet then it must be there in the index.html main file in dist of react app , so instead of sending nothing we send that file below, so that React sees the /about url and render the /about page.
+    // app.get("*", (req, res) => {
+
+    // CAN PUT "_" IF REQ WAS NOT NEEDED , BY CONVENTION.
+    app.get("*", (_, res) => {
+
+        // can do in any of the below ways.
+
+        // res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+    })
+}
 
 // WE ARE SENDING GET REQUESTS FROM THE BROWSER TO THESE URLS BELOW.
 // app.get("/api/auth/signup", (req, res) => {
