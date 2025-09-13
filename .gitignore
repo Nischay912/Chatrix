@@ -1,0 +1,3 @@
+# we write the folders or files here that we don't want to push to github like the secrets in env file or too large folders like the node_modules
+node_modules
+.env

@@ -1,0 +1,14 @@
+terminal > cd backend > npm init -y to get the package.json file > npm i express : this framework that allows us to build APIs quickly and easily ; 
+
+then we will use mongoose to connect with mongoDB database ;
+
+ we will also use "jsonwebtoken" which is used for authentication ; its used to create and verify tokens (JSON Web Tokens). ; When a user logs in successfully, the server gives them a token (like a digital ID card) & The client uses this token for every request.
+
+ then we will be using : dotenv file to load the .env having environment varaibales into process.env file ; 
+ then bcryptjs is used to hash (encrypt) passwords before storing them in a database ; we should never store raw passwords ; so even if our database leaks , hacker can't see actual password as it has been encrypted;
+
+ cookie-parser is a Middleware to parse cookies from the HTTP request headers in Express , so its used for Reading and managing cookies in requests/responses , because In many apps, JWTs or session IDs are stored in cookies , so : Without this, "req.cookies" will be undefined ; A cookie is a small piece of data that a website stores on your computer (in your browser); They are sent back and forth between browser and server with each request ; its like a token we get at KFC that we need to show at the counter everytime we want to know status of our order; so these cookies are same as that which are stored in browser , and that cookie set by site will be included automaticaly on any further request made on that site ; so Cookies are : little memory notes your browser keeps for websites (e.g., login status, cart items, theme, language) so the server can recognize you on future visits.
+
+So , lets do : npm i express@4.21.2 mongoose@8.10.1 jsonwebtoken@9.0.2 bcryptjs@2.4.3 dotenv@16.4.7 cookie-parser@1.4.7
+
+see next steps in backend folder's server.js file now.

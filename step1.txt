@@ -1,0 +1,1 @@
+Initialize React application > terminal > cd frontend > npm create vite@latest . > we put "." to Initialize it under current folder "frontend" > then do select react , javascript > npm install > npm run dev > check its running on the link given there : then click on dustbin to kill the terminal and now do for backend in step2.txt
