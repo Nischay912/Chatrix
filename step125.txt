@@ -4,4 +4,6 @@ We first press : ctrl+shift+p > create new branch > branch name : signup ; its l
 
 So after creating new branch > go on github icon on top in sidebar > then click on + there next to the changes at top there > it will stage all changes > then type the commit message : "signup controller created and added" > commit > publish branch.
 
-Go now on github > 
+Go now on github > we can see PULL request has come from another branch , we can click on Compare and pull request , there we can see that base branch is "master" and we have recieved pull request from "signup" branch there.
+
+Click > create pull request > then the team-mate can come here and go on Commits on top > click on latest commit message there > and can see the addition happening in our code if we accept the pull request > and they can add comments using the + in blue appaearing when hovering over any new code lines added in green color there & write comments like : "this code is not clean , fix it" and can start the review there : later they will keep monitoring it and finally can merge the changesin their code there ; so since this whole is our account we are team-mate as well as coder so we can go back and again back and click on "merge pull request" to merge the changes of the PULL request in our code.

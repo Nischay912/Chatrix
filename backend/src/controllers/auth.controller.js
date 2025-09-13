@@ -63,8 +63,13 @@ export const signup = async (req, res) => {
         if(newUser){
             // step92: if user created successfully , we generate a token to authenticate the user.
 
+            
             // step93: we know that in mongoDB : MongoDB automatically gives every document a unique _id & now we pass this ID into generateToken() function below.
-            generateToken(newUser._id , res)
+            // generateToken(newUser._id , res)
+            
+            // GOT SUGGESTION FROM CODE-RABBIT WHICH GIVES IS SUGGESTIONS ON GITHUB BEFORE MERGING A PULL REQUEST : so we first save the user below and then call the function ; so lets write these two lines in code and comment the one we had earlier below it.
+            const savedUser = await newUser.save()
+            generateToken(savedUser._id , res)
 
             // step94: then use the save function to save the user in the database.
             await newUser.save()

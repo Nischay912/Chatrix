@@ -4,6 +4,13 @@ import mongoose from 'mongoose'
 // step49: then lets create an async function to connect to the db.
 export const connectDB = async () => {
     try{
+
+        // CAN CHECK AT START ONLY IF THE ENV VARIABLE IS NOT DEFINED , THROW ERROR AND EXIT IMMEDIATELY , NO USE TO PROCEED.
+        const { MONGO_URI } = process.env;
+        if (!MONGO_URI) {
+            throw new Error("MONGO_URI is not defined or set");
+        }
+
         // step50: connect to the database using the connection string we had.
         const conn = await mongoose.connect(process.env.MONGO_URI)
 

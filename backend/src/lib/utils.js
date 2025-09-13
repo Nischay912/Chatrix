@@ -6,6 +6,12 @@ import jwt from "jsonwebtoken"
 // step102: now lets create the generateToken function now ; we had seen earlier that we called this function with two parameters : userId and res , so lets do that here now.
 export const generateToken = (userId , res) => {
 
+    // CAN CHECK IF THE SECRET EXISTS OR NOT IN THE ENV FILE , IF NOT RETURN IMMEDIATELY WITH ERROR AS NO USE TO PROCEED FURTHER NOW HERE.
+    const { JWT_SECRET} = process.env;
+    if(!JWT_SECRET) {
+        throw new Error("JWT_SECRET is not configured")
+    }
+
     // step103: now lets create a token for the user below , so that we kow which user is which one and is authenticated or not.
 
     // step104: see the step105.txt for authentication workflow to be used here now there.
@@ -17,7 +23,7 @@ export const generateToken = (userId , res) => {
     // step108: so this function below makes a secured token with the user's id passed as parameter in the function above.
 
     // step109: the secret is needed because the jwt token is sent as cookie to client in browser , and using ai tools like "jwt.io" website they can see the contents of the token , but they can't try to fake an modify it to login to some other user , because : we have set a secret here in the server ; so as we know that the server sends the cookie containing jwt to client when it signs up , and browser stores the cookie immediately ; and now browser will send it automatically with every HTTP request to the same domain ; On every request (e.g., GET /profile): Browser sends the cookie along with the request headers ; Server can read this cookie from req.cookies (if you use middleware like cookie-parser) ; Server extracts the JWT from the cookie ; Server verifies it using jwt.verify(token, JWT_SECRET) ; If token is valid → server knows which user is making the request (userId from payload) ; If token is invalid or expired → server rejects the request (user must log in again) ; thus it prevents unauthorized access in the authentication process.
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7d" })
+    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" })
 
     // step110: lets send it back to the user as a cookie now.
 
