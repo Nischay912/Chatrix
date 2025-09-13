@@ -11,3 +11,5 @@ Go to overview > Deploy now > it may show error to use upgraded version 20+ vers
 and then it will run the production in that version only there now : so again push the changes to the github ; and since we had checked the checkbox to run the deployment on every commit and push ; so it redeploys itself now.
 
 There in deploy logs we may see Sevalla runs on 8080 port thats fine many different softwares run on different ports , it will adjust accordingly , thats why we had used the PORT in env variable so that it gets adjusted accordingly there.
+
+So , we get the deployed website link on Sevella there : "https://chatrix-skwb4.sevalla.app/" : so under same domain we have got both our frontend(react app/static assets) and backend now here.

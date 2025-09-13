@@ -20,6 +20,7 @@ import authRoutes from './routes/auth.route.js'
 import messageRoutes from './routes/message.route.js'
 
 import dotenv from 'dotenv'
+import { connectDB } from './lib/db.js'
 // step18: lets load the ".env" file now by calling the method of dotenv package below.
 dotenv.config()
 
@@ -36,6 +37,13 @@ const __dirname = path.resolve()
 
 // step19: now lets save the port value from env file in PORT variable and if its not defined lets set it to 3000 by default.
 const PORT = process.env.PORT || 3000
+
+// step65: now lets use the express middleware to help get access of the fields inputs that user sends during signup and login to the server there.
+
+// step66: so the data entered by user will be sent to server her under req.body and so express middleware will help us to get access of the data entered by the user there.
+
+// step67: see next steps in auth.controller.js file now there.
+app.use(express.json())
 
 // step10: now lets tets the server for various endpoints of url below and then go on "http://localhost:3000/api/auth/login" to see the response sent by the server for the login endpoint there.
 
@@ -102,6 +110,18 @@ if(process.env.NODE_ENV === "production") {
 // app.listen(3000, () => console.log("Server is running on port 3000"))
 
 // step20: now lets use the PORT variable instead of hardcoded PORT value above.
-app.listen(PORT, () => console.log("Server is running on port: " + PORT))
+
+// step54: now lets call the function we created once we start listening our application.
+
+app.listen(PORT, () => {
+    console.log("Server is running on port: " + PORT);
+
+    // step55: calling the fucntion created in "lib" folder there , thats imported and being used now here below.
+
+    // step56: can check it by doing "cd backend" > npm run dev and see the logs in server terminal saying the app is running with mongoDB connected successfully there.
+
+    // step57: now see the next steps in auth.route.js file there.
+    connectDB()
+})
 
 // step21: now in .env file we make NODE_ENV = development as we are currently in development and when deploying we will change it to production.
