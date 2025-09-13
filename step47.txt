@@ -1,0 +1,9 @@
+Then now we need to connect the app to database , so lets go on mongodb.com and login > on top left > projects > add new project > Chatrix name put there > next > create.
+
+Create > choose FREE one > leave all as it is > create deployment > copy username and password > create database user > choose connection method > drivers > copy the connection string > go in ".env" and put this ind MONGO_URI as our database connection string.
+
+Click Done > on left sidebar go on Network Acess > Add IP Address > Allow access from anywhere > confirm > once its done > go in database > clusters > and see the collections using browse collections , but for that lets create databse collections and all here first.
+
+So, we create a folder named "lib" in "src" of backend and inside that db.js file to connect to database.
+
+So , see the next steps there now.

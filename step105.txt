@@ -1,0 +1,17 @@
+We have the diagram "auth_workflow.png" for reference there.
+
+We see that : user clicks a button which sends a request to the "/api/auth/signup" endpoint or "/api/auth/login" endpoint.
+
+If its a "signup" , we create a user in the database and then generate a token using JWT ; and its like saying that ok user you are authenticated , so keep this token with you ; so we create the token from server and send it back to client , and since we are sending back to user , means we need response , so we thats why had "res" as a parameter in the previous steps there too.
+
+So, we create a token and send it back to client in form of COOKIES i.e the browser stores it for next time request is made later ; and then we can show some success message there like : Signed Up Successfully !
+
+SO , we have : JWT = proof of identity / authentication badge ; and the : small piece of data stored in the user’s browser ; We use it to store the JWT securely ; Each time the user makes a request, the browser automatically sends the cookie (with the JWT inside) back to the server ; This way, the user stays logged in without needing to re-enter credentials every time.
+
+- User logs in or signs up.
+- Server creates a JWT.
+- Server sends JWT inside a cookie.
+- Browser saves the cookie.
+- On every next request → cookie (with JWT) is auto-sent → server verifies token → user stays authenticated.
+
+See the next steps back in the utils.js file now there.

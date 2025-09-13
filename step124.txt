@@ -1,0 +1,5 @@
+We now if try to send same req again via POSTMAN , it shows error saying email already exists ; so we must change email and then can send multiple users in the database for signup.
+
+And now we thus can see that our data is being stored safely in the database correctly there.
+
+See the next steps in step125.txt file there now.

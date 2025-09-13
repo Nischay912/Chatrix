@@ -1,0 +1,7 @@
+Now , lets push the code in a new branch on Github and commit our changes.
+
+We first press : ctrl+shift+p > create new branch > branch name : signup ; its like when we join a company , they create a new branch for us to work onn and commit our changes , and later we can send the officials PULL request to them , and they can see the changes and accept it if they approve and like it ; so we'll see similar process here now.
+
+So after creating new branch > go on github icon on top in sidebar > then click on + there next to the changes at top there > it will stage all changes > then type the commit message : "signup controller created and added" > commit > publish branch.
+
+Go now on github > 

@@ -1,0 +1,14 @@
+Now , lets test the API made by us on POSTMAN there now.
+
+Open POSTMAN > New > HTTP > put the endpoint "localhost:3000/api/auth/signup" > make it POST > go in body > raw > then also change dropdown to JSON format there and try to send -
+{
+    "fullName" : "Nischay Kumar",
+    "email":"nischaykumar.dev@gmail.com",
+    "password":"12345678"
+}
+
+; we could have recieved the error messages too there if we write invalid format email , leave a field un-filled and so on : so can check that too if working properly or not ; but for now we send this request and then see the response in POSTMAN there.
+
+Can also see the COOKIE there present below the send button there > click on jwt > and see the cookie with all details we wrote to be sent inside cookie ; can see the expiration date and time too there.
+
+see the step123.txt file now there.

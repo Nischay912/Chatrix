@@ -1,0 +1,5 @@
+We now can see the database will also would have been created with the "users" collection name inside a "test" database on mongodb.com there ; and the password will be stored in hashed format there too.
+
+To fix the database name , we cna go in ".env" file and there after mongodb.net/? is there : so put database name between the / and ? like : mongodb.net/Chatrix? > if not done : default database name "test" used to create the databse named by that there.
+
+See the step124.txt file now for next steps there now.
