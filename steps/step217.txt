@@ -1,0 +1,7 @@
+Go on "arcjet.com" > login > copy the arcjet key > put in .env file as well as env.js file too first there.
+
+Now on the website > select : nodeJs + Express icon > then we can see the documentation to implement it there.
+
+We have already installed Express , so skip this step > then : npm i @arcjet/node@1.0.0-beta.10 @arcjet/inspect@1.0.0-beta.10 ; make sure to do this in backend directory in terminal i.e. after doing cd .\backend\ : then do this there.
+
+Now see the next steps in the "arcjet.js" file in the "lib" folder there.

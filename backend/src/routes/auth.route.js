@@ -4,10 +4,16 @@ import { signup , login , logout , updateProfile } from '../controllers/auth.con
 
 // step193: lets import the protectRoute function here below.
 import { protectRoute } from '../middleware/auth.middleware.js'
+import { arcjetProtection } from '../middleware/arcjet.middleware.js'
 
 // step194: see th enext steps in the step195.txt file now there.
 
 const router = express.Router()
+
+// step242: lets write the arcjetProtection middleware here below itself , so that automatically if this protection succeeds then it will call the login , logut , etc all functions below as they are now its next functions ; so now can remove arcjet protection from each routes there as below code will check for each of them now automatically.
+
+// step243: see next steps in step244.txt file now there.
+router.use(arcjetProtection)
 
 // step26: now lets use the endpoints here below, and here we have "router" not "app" so adjust adn paste them here below.
 
@@ -30,7 +36,28 @@ router.post("/signup" , signup)
 
 // step148: now like done for signup above , lets also do for login and logout below ; so see next steps again now in auth.controller.js file there.
 
-router.post("/login", login)
+// router.post("/login", login)
+
+// step236: just before the login , lets put the middleware for arcjet checking and then after check of it only , we pass the contorl to run the next function i.e. login function here below.
+
+// step237: can also do on signup above too.
+
+// COMMENTED DUE TO STEP 242 TOLD ABOVE : CAN SEE THERE.
+// router.post("/login", arcjetProtection, login)
+router.post("/login",  login)
+
+// step238: but if we send a request for login now even once from postman : it will be treated as a BOT request and thus it will be blocked by arcjet and we will show an error response there ; so to test this lets create a get request below just for testing which we will use temporarily for testing here below.
+
+// step239: to test this for now only : go to arcjet.js file and set the max to 5 per minute : then go on the "localhost:3000/api/auth/test" endpoint and try to send a GET request continuously there by pressing the refresh button continuously there : if we do so : after 5 times we will see the error : hence our arcjet is working correctly.
+
+// step240: comment this below out after testing : as it was for testing purpose only there.
+
+// step241: now lets do the arcjet protection on logout and updateProfile as well there and at many places ; but adding them manually in each of them is very time-consuming so instead what we can do is in the next step above there.
+
+router.get("/test", arcjetProtection, (req, res) => {
+    res.status(200).json({ message: "Test route successful" })
+})
+
 router.post("/logout", logout)
 
 // router.get("/login", (req, res) => {

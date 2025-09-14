@@ -1,0 +1,5 @@
+Now we can again do : ctrl+shift+p > create new branch > give a name > go on git icon in sidebar > click on + near the changes navbar there to stage all the changes and finally , commit with a message there : go on github merge the pull request > come back here > in bottom left , click on branch name > go back to master > then click on the sync / refresh button in bottom left to sync all changes of the last branch to master too , so that th emain master branch is up to date here below too as well.
+
+Thus our all the changes gets commited and up to dated in our git and github both thus here.
+
+See the next steps in the Message.js file in the "models" folder now there.
