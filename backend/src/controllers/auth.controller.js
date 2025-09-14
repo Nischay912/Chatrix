@@ -123,6 +123,11 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
     // res.send("login endpoint")
 
+    // CAN ADD THIS CHECK BELOW IN START ITSELF TO ENSURE THAT BOTH EMAIL AND PASSWORD WERE FILLED AND NOT SENT NULL OR EMPTY FIELDS.
+    if(!email || !password){
+        return res.status(400).json({ message: "Email and Password are required" })
+    }
+
     // step150: now user will be sending email and password in login page , so lets accept those values here below.
     const { email , password } = req.body
 
