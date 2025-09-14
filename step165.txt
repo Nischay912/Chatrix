@@ -2,4 +2,6 @@ Now we can go on POSTMAN and check the login and logout endpoints > so enter the
 
 Then call for logout endpoint and no need to send anything in body now , just send and then if you see the cookies below the send button there , it will show : no cookies will be shown there as we have logged out the user , so its cookie is removed too , so that broswer now have no info about logged in user , which makes it treat like there is no logged in user on the website currently.
 
-So, now save this in another branch called "login-logout" and commit.
+So, now save this in another branch called "login-logout" and commit ; and then go on github merge pull request and then come back here and switch to master branch from bottom-left and then sync all changes clicking on that refresh type button on the bottom left there and all changes will come in the master branch from there as well now.
+
+Now lets see the next steps in the auth.route.js file now there.
