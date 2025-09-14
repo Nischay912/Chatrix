@@ -4,6 +4,7 @@ import User from "../models/User.js"
 import bcryptjs from "bcryptjs"
 import { generateToken } from "../lib/utils.js"
 import { sendWelcomeEmail } from "../emails/emailHandlers.js"
+import cloudinary from "../lib/cloudinary.js"
 
 // step144: to use the environment variables , we again need to import dotenv package and call its .config method first here below.
 // import dotenv from "dotenv"
@@ -122,14 +123,14 @@ export const signup = async (req, res) => {
 // step149: now lets paste the function we had in route.js here below and we'll edit it here only now below.
 export const login = async (req, res) => {
     // res.send("login endpoint")
+    
+    // step150: now user will be sending email and password in login page , so lets accept those values here below.
+    const { email , password } = req.body
 
     // CAN ADD THIS CHECK BELOW IN START ITSELF TO ENSURE THAT BOTH EMAIL AND PASSWORD WERE FILLED AND NOT SENT NULL OR EMPTY FIELDS.
     if(!email || !password){
         return res.status(400).json({ message: "Email and Password are required" })
     }
-
-    // step150: now user will be sending email and password in login page , so lets accept those values here below.
-    const { email , password } = req.body
 
     // step151: now lets check if user exists or not
     try{
@@ -186,4 +187,47 @@ export const logout = async (_, res) => {
     res.status(200).json({ message: "User logged out successfully" });
 
     // step164: see the next steps in step165.txt file now there.
+}
+
+// step169: now lets create the update profile function here below.
+
+// step170: see the next steps in the auth.route.js file now there.
+export const updateProfile = async (req, res) => {
+    // res.send("update profile endpoint")
+
+    // step200: lets now make this function below.
+    try {
+        // step201: lets try to get the profile pic from request sent by user during updation.
+        const { profilePic } = req.body
+
+        // step202: if no profile pic url is sent , we can just return the response below.
+        if(!profilePic){
+            return res.status(400).json({ message: "Profile pic is required" })
+        }
+
+        // step203: now in the middleware.js file we had written req.user = user ; before calling the next() function i.e. this function there : its because that line of code , made the user's data to be accessible inside this next method there.
+        const userId = req.user._id;
+
+        // step204: now lets upload the profile pic url in the cloudinary cloud there ; uploader is a property inside Cloudinary SDK that lets us upload files.
+        const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+        // step205: now also update the database with the new profile pic url there.
+        const updatedUser = await User.findByIdAndUpdate(userId , {
+
+            // step206: using secure_url : Cloudinary returns a secure HTTPS URL for the uploaded image
+            profilePic: uploadResponse.secure_url
+        },
+
+        // step207: now this belwo line of code returns the updated document after changes are applied in the variable we had on left hand side of this function call above.
+        {new : true}
+        )
+
+        // step208: finally just send the success response back.
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        // step209: if any error comes then send error response below.
+
+        // step210: see the next steps in auth.route.js file now there.
+        res.status(500).json({ message: "Something went wrong due to some Internal Server Error" }) 
+    }
 }
