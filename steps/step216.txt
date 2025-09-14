@@ -1,0 +1,19 @@
+Now , lets see what is RATE LIMITING , which we will be applying in our project now here.
+
+Rate Limiting is a way to control : how often someone can do something on a website or app ; like how many times they can refresh a page , make a request to an API or try to log in.
+
+So, we can put some limits on it like : only 100 requests per user allowed every 2 minutes.
+
+Its necessary to do as we don't want people to keep sending POST , GET .... requests too mnay times in an minute or so , as it may overburden or even break the server at the end.
+
+So, we will put a RATE LIMITER between the client and the API : where the requests will be filtered out , depending on whether to accept or reject them.
+
+So, Rate Limiting thus helps us in Preventing abuse like stopping them from making 1000 login attempts in a minute ; like he can send 1000 requests on postman too in a minute which we not want in real life too.
+
+It also protects server from getting overwhelmed or over-burdened.
+
+The status code for it is 429 : which means "Too Many Requests".
+
+So, to implement this Rate Limiting : we'll be using : "arcjet.com" platform.
+
+So, see the next steps now for it in step217.txt file now there.
