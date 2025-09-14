@@ -1,0 +1,5 @@
+Now we can go on POSTMAN and check the login and logout endpoints > so enter there : "http://localhost:3000/api/auth/login" and later with logout too ; and backend should be running too there ; and then in body send the email and password ; and if you entered correct one , the user gets logged in and we can see the cookies there in postman of logged in user below the send button there.
+
+Then call for logout endpoint and no need to send anything in body now , just send and then if you see the cookies below the send button there , it will show : no cookies will be shown there as we have logged out the user , so its cookie is removed too , so that broswer now have no info about logged in user , which makes it treat like there is no logged in user on the website currently.
+
+So, now save this in another branch called "login-logout" and commit.

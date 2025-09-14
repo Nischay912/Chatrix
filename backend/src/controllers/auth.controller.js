@@ -118,3 +118,67 @@ export const signup = async (req, res) => {
         
     }
 }
+
+// step149: now lets paste the function we had in route.js here below and we'll edit it here only now below.
+export const login = async (req, res) => {
+    // res.send("login endpoint")
+
+    // step150: now user will be sending email and password in login page , so lets accept those values here below.
+    const { email , password } = req.body
+
+    // step151: now lets check if user exists or not
+    try{
+        // step152: find the user by email
+        const user = await User.findOne({ email })
+
+        // step153: if user not exists , give it response that Credentials are invalid , instead of saying email is incorrect or passwords , as hacker may then try to crack whats wrong out of mail or password easily then there.
+        if(!user){
+            return res.status(400).json({ message: "Invalid Credentials" })
+        }
+
+        // step154: now lets check if password is correct or not ; so we use the bcryptjs.compare method here below to compare the password user typed in field and sent above , with the password in the database corresponding to the entered email.
+        const isPasswordCorrect = await bcryptjs.compare(password , user.password)
+
+        // step155: if password not correct , give it response that Credentials are invalid
+        if(!isPasswordCorrect){
+            return res.status(400).json({ message: "Invalid Credentials" })
+        }
+
+        // step156: if none of above return returned the user out of the function , means the user is authenticated , so we generate a token for the user and send it back to the client ; becasue like elarnt earlier , token is stored in the browser for next time request is made , so we can show some success message there like : Logged In Successfully & so the server knows who the user is every time and keeps him logged in without making him to enter credentials every time ; instead its information is saved in the browser that the user is logged in succesffully throughout , so till cookie is removed , user remians logged in.
+        generateToken(user._id , res)
+
+        // step157: then we can send a response to the client once login is successful.
+        res.status(200).json({
+            message: "User logged in successfully",
+            _id : user._id,
+            fullName: user.fullName,
+            email: user.email,
+            profilePic: user.profilePic
+        });
+    }
+
+    // step158: if any error occurs , send error message.
+    catch(error){
+        console.error("Error in login", error)
+        res.status(500).json({ message: "Something went wrong due to some Internal Server Error" })
+    }
+}
+
+// step159: now for the logout user , won't be entering any data and sending as req.body ; so we can omit the req paramneter below or put "_" there as convention says so to do.
+export const logout = async (_, res) => {
+    // res.send("logout endpoint")
+
+    // step160: here we will try to get rid of the cookies here below upon logout ; because in the utils.js file we when called the generate token function upon login , we set a cookie with name "jwt" there , so same name give below to get rid of that cookie and logout the user.
+
+    // step161: so below , we make the new value to be nothing below "" and then kill the cookie immediately below.
+    res.cookie("jwt" , "" , {
+
+        // step162: the below command deletes the cookie immediately and logs out the user ; as currently in browser , one user will be logged in whose cookie is there and so once we kill the cookie , the user will be logged out immediately.
+        maxAge:0
+    })
+
+    // step163: then we can send a response to the client once logout is successful.
+    res.status(200).json({ message: "User logged out successfully" });
+
+    // step164: see the next steps in step165.txt file now there.
+}
