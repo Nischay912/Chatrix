@@ -4,4 +4,6 @@ So, github gets updated with the changes > now we if switch back to master branc
 
 So, for that we can click on bottom left : welcome-mail branch we are in > then click on master to come to master branch , we wont be able to see the changes we saved in welcome-mail branch , so click on the redresh type icon on bottom left there and click OK to sync all changes from github to the master branch too now.
 
-Now to save this step147.txt > make sure to come out of all things and do git add . as this file is not inside the backen folder , so come outside using cd .. > then do that.
+Now to save this step147.txt > make sure to come out of all things and do git add . as this file is not inside the backen folder , so come outside using cd .. > then do those git add . , then git commit & finally git push there.
+
+See the next steps now in the auth.route.js file now there.
