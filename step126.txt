@@ -1,0 +1,9 @@
+Now to send a welcome mail to users when they sign up > go on : resend.com > sign in > docs > nodeJs icon select it > documentation > see the codes to get started with there.
+
+In terminal > do cd backend > type : npm i resend > go in API keys section > create api key > chatrix > full access > add > copy the API key > in .env file > paste that API key ; also put some other things like > EMAIL FROM AND EMAIL FROM NAME THERE IN .env file > the domain can be set to ours too , but we don't have one , so lets use resend's email there in .env file.
+
+Then we can create emails folder under src folder in backend and inside the emailTemplates.js file we make the email template there.
+
+In the template , we have 2 parameters dynamic : username & the application_url based on the deployed domain as it will take us to the deployed website.
+
+Then inside "lib" create "resend.js" file and see the next steps there now.

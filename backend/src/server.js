@@ -19,10 +19,11 @@ import authRoutes from './routes/auth.route.js'
 // step33: lets import this now same as we did for auth above , and now see next steps in message.route.js file there.
 import messageRoutes from './routes/message.route.js'
 
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 import { connectDB } from './lib/db.js'
 // step18: lets load the ".env" file now by calling the method of dotenv package below.
-dotenv.config()
+// dotenv.config()
+import { ENV } from './lib/env.js'
 
 // step5: then we create an instance of express below.
 const app = express()
@@ -36,7 +37,7 @@ const __dirname = path.resolve()
 // console.log(process.env.PORT)
 
 // step19: now lets save the port value from env file in PORT variable and if its not defined lets set it to 3000 by default.
-const PORT = process.env.PORT || 3000
+const PORT = ENV.PORT || 3000
 
 // step65: now lets use the express middleware to help get access of the fields inputs that user sends during signup and login to the server there.
 
@@ -70,7 +71,7 @@ app.use("/api/messages", messageRoutes)
 // step41: now we ensure following code runs only in production mode ; we tell express to serve static files like html , css , js using the ".static" middleware below ; then path.join : builds the absolute path to the folder containing your frontend build , containing directory name first and then the frontend's dist folder.
 
 // step42: we have places all in app.use so that : it adds this middleware to the whole app, so when someone visits your website, Express automatically serves the frontend files.
-if(process.env.NODE_ENV === "production") {
+if(ENV.NODE_ENV === "production") {
 
     // step43: we have used ".." as we currently will be in backend folder as this server.js runs there ; so first "." moves us one out of backend in the main Chatrix folder and then using "./" we went in the frontend in the outermost place in the Chatrix folder here and then the "dist" folder.
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
