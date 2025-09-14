@@ -3,6 +3,12 @@
 import User from "../models/User.js"
 import bcryptjs from "bcryptjs"
 import { generateToken } from "../lib/utils.js"
+import { sendWelcomeEmail } from "../emails/emailHandlers.js"
+
+// step144: to use the environment variables , we again need to import dotenv package and call its .config method first here below.
+// import dotenv from "dotenv"
+// dotenv.config()
+import { ENV } from "../lib/env.js"
 
 // step61: we copied the content of function here now ; see next steps in auth.route.js file now.
 export const signup = async (req, res) => {
@@ -83,7 +89,17 @@ export const signup = async (req, res) => {
                 fullName: newUser.fullName,
                 email: newUser.email,
                 profilePic: newUser.profilePic
-            })
+            });
+
+            // step143: lets now call the function to send welcome email to user when he/she signs up.
+
+            // step145: see the next steps in step146.txt file now there.
+            try{
+                await sendWelcomeEmail(savedUser.email,savedUser.fullName,ENV.CLIENT_URL)
+            }
+            catch(error){
+                console.log("Error sending welcome email" , error);
+            }
         }
         else{
             // step91: if user not created due to some errors while entering the data , send error message.

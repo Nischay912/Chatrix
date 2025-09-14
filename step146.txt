@@ -1,0 +1,11 @@
+Now lets test if the welcome email is working correctly or not ; so we run the backend and also put in environment variable , the link of frontend in client URL , but in production, we will put the link of our domain to be opened up when user clicks on Open Chtrix in the welcome email he/she recieves there.
+
+NOTE : we are using the resend domain in the EMAIL_FROM in env file as our domain is not there for now ; so test in POSTMAN witht he same email with which you created account in the resend.com webpage there ; and after that we can see the email recieved in inbox there now.
+
+So, this was : Transactional Emails we were sending : which are sent to one user at a time for purposes like : welcome emails , confirmational emails , password resets , etc ; whereas : bulk emails are sent to multiple users at once as they are used by newsletters or for promotional purposes there.
+
+But we have a problem that everytime we want to use environment variable , we have to import dotenv and call the config method in each file where we want to use it > so instead of that , lets create a "env.js" file in "lib" folder there.
+
+And then in all places where we did "import dotenv" and then did dotenv.config there : now we can just do there that : import {ENV} from "./env.js" & then wherever we did in that dile process.env.{something} > just do : ENV.{something}
+
+Thus we imported dotenv only once in the env.js file and saved all the process.env in ENV object which we are exporting to be used in all the files where this env.js will be imported now directly there.

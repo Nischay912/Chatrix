@@ -2,12 +2,13 @@
 
 // step101: lets import the jsonwebtoken package now , that will allow us to implement the authentication process there.
 import jwt from "jsonwebtoken"
+import { ENV } from "./env.js"
 
 // step102: now lets create the generateToken function now ; we had seen earlier that we called this function with two parameters : userId and res , so lets do that here now.
 export const generateToken = (userId , res) => {
 
     // CAN CHECK IF THE SECRET EXISTS OR NOT IN THE ENV FILE , IF NOT RETURN IMMEDIATELY WITH ERROR AS NO USE TO PROCEED FURTHER NOW HERE.
-    const { JWT_SECRET} = process.env;
+    const { JWT_SECRET} = ENV;
     if(!JWT_SECRET) {
         throw new Error("JWT_SECRET is not configured")
     }
@@ -50,7 +51,7 @@ export const generateToken = (userId , res) => {
         sameSite : "strict",
 
         // step119: then we can have that : its secure if we are in production as production websites have "https" where "s" stands for secure , but if we are in development i.e "http://localhost:3000" then we can have it as false as it is not a secure website , as we have "http" no "s" , not secure ; so : secure → ensures cookie is sent only on secure (HTTPS) connections ; its important because : Cookies that contain sensitive info (like JWTs) should not be sent over plain HTTP in production ; HTTPS encrypts the connection → prevents eavesdropping (In networking, eavesdropping means when a hacker secretly listens to or captures data being sent between your browser and the server.) ; During development, localhost usually doesn’t use HTTPS → need false to test locally.
-        secure : process.env.NODE_ENV === "development" ? false : true
+        secure : ENV.NODE_ENV === "development" ? false : true
      })
 
     //  step120: finally return the token from this function.

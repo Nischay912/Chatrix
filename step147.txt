@@ -1,0 +1,3 @@
+Now we go on : ctrl+shift+p > create new branch > name : welcome-email > go on the top icon of git in sidebar > click on + in the bar showing changes , to stage all the changes made > write commit message > commit > publish branch > go on github > create pull request > merge pull request > confirm merge.
+
+So, github gets updated with the changes > now we if switch back to master branch , we won't be able to see the changes in local vs code as it has been implemented in the github only , not on the local git of our machine here.
