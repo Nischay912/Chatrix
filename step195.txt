@@ -1,0 +1,7 @@
+So, now we will be allowing user to update the profile in the updateProfile endpoint there : so for that we will be saving or storing the image on cloud at "cloudinary.com"
+
+For that do : cd backend > then : npm i cloudinary : in order to get their SDKs i.e. the Software Development Kits in our file.
+
+re-run the server using "npm run dev" in the backend theree.
+
+Then create a "cloudinary.js" file inside the lib folder there now ; see the next steps there now.

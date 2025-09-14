@@ -1,0 +1,9 @@
+Now we can see the protectRoute.png image for reference there.
+
+So , we can see there that : if user after login or signup makes any subsequent requests like sending messages , updating profiles ,etc : then we will tell the user to send the jwt token with the request : so this will be done automatically when they send a request to the server ; as we can get the token from the cookies stored in the browser upon signup or login , like seen earlier.
+
+So , when user makes a request like updating the profile , then we will see from the cookies if that user has a token : if yes we will see if its valid jwt token or not : if valid : we will grant access to update the profile : if not then we can say it to be un-authenticated and so : cannot do or allow it.
+
+So, now we will be using the protectRoute middleware which is a function that will run before sending a response back to the user ; so this protectRoute will be a middleware that will run before sending a response back to the user who had sent a request to send message or update profile to the server ; and here the authentication check will be our middleware in this case thus here.
+
+So, lets create a middleware folder in the src folder and see the next steps there now.

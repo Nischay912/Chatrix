@@ -25,6 +25,8 @@ import { connectDB } from './lib/db.js'
 // dotenv.config()
 import { ENV } from './lib/env.js'
 
+import cookieParser from 'cookie-parser'
+
 // step5: then we create an instance of express below.
 const app = express()
 
@@ -45,6 +47,11 @@ const PORT = ENV.PORT || 3000
 
 // step67: see next steps in auth.controller.js file now there.
 app.use(express.json())
+
+// step179: let suse the cookie-parser package to help us get access of the cookies sent by the user there ; so we parse the cookie into a JSON object using this package.
+
+// step180: see the next steps back in middleware.js file there.
+app.use(cookieParser())
 
 // step10: now lets tets the server for various endpoints of url below and then go on "http://localhost:3000/api/auth/login" to see the response sent by the server for the login endpoint there.
 
