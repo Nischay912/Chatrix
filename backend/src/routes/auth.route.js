@@ -1,6 +1,6 @@
 // step24: lets import express and create a router below.
 import express from 'express'
-import { signup } from '../controllers/auth.controller.js'
+import { signup , login , logout } from '../controllers/auth.controller.js'
 const router = express.Router()
 
 // step26: now lets use the endpoints here below, and here we have "router" not "app" so adjust adn paste them here below.
@@ -22,12 +22,17 @@ const router = express.Router()
 // step64: see next steps in server.js file now there.
 router.post("/signup" , signup)
 
-router.get("/login", (req, res) => {
-    res.send("login endpoint")
-})
-router.get("/logout", (req, res) => {
-    res.send("logout endpoint")
-})
+// step148: now like done for signup above , lets also do for login and logout below ; so see next steps again now in auth.controller.js file there.
+
+router.post("/login", login)
+router.post("/logout", logout)
+
+// router.get("/login", (req, res) => {
+//     res.send("login endpoint")
+// })
+// router.get("/logout", (req, res) => {
+//     res.send("logout endpoint")
+// })
 
 // step25: since import hs been used , at the end use the export keyword to export the router below.
 export default router
