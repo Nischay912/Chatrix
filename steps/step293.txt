@@ -1,0 +1,15 @@
+Now in the message.route.js : we should have all the four endpoints -
+
+router.get("/contacts" , protectRoute , getAllContacts)
+router.get("/chats", protectRoute, getChatPartners)
+router.get("/:id" , protectRoute ,getMessagesbyUserId)
+router.post("/send/:id" , protectRoute, sendMessage)
+
+; write these in the same order as mentioned above because : if its like -
+
+router.get("/:id", protectRoute, getMessagesbyUserId);
+router.get("/contacts", protectRoute, getAllContacts);
+
+; then the :id will catch the endpoint /contacts in it and send the get request from /:id endpoint instead of from the /contacts endpoint ; that why the /chats and /contacts are written at the top and below that the get request for :id ; and the last line doesn't matter as its a different HTTP request i.e. its POST , others were GET , however : keeping it after /:id is clean and logical (first handle GET messages, then POST to send a message).
+
+See the next steps in the message.controller.js file now there.

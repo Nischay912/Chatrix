@@ -1,0 +1,3 @@
+Now we can go on POSTMAN and send GET request for the url : http://localhost:3000/api/messages/contacts ; so it will now fetch all the users details in the database , other than the currently logged in user : we can try changing the logged-in user from login endpoint in POSTMAN , it will still return all other users except the logged in user of the database there.
+
+See the next steps in message.controller.js file now there.

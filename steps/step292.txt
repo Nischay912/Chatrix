@@ -1,0 +1,10 @@
+Now we can check this in the POSTMAN by sending a POST request at "http://localhost:3000/api/messages/send/68c5f1b66eebc070e591e014" , where we have put up the id of the reciever from the database ; and then send in body -
+{
+    "text" : "Hey there!"
+}
+
+; we can then see this message object in the database there ; make two three more messages like this there now and can see all of them in the database there too.
+
+Now in POSTMAN , lets make a GET request at "http://localhost:3000/api/messages/68c5f1b66eebc070e591e014" to get the messages between the logged in user and the user whose id has been sent as url in the endpoint there ; we can see all the messages now sent or recieved between the logged in user and the user whose id has been sent as parameter in the url of the endpoint there.
+
+See the next steps in step293.txt file now there.
