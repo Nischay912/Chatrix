@@ -70,7 +70,7 @@ app.use(cookieParser())
 // step31: so this sets a base path for all routes inside authRoutes ; so if auth.route.js file has .get("/login,....") , the full endpoint becomes /api/auth/login ; this makes the code cleaner now.
 app.use("/api/auth", authRoutes)
 
-// step32: now codebase has become very cleaner and now in the future we if want to create something related to messages , we cand o the same as above now below for it.
+// step32: now codebase has become very cleaner and now in the future we if want to create something related to messages , we can do the same as above now below for it.
 app.use("/api/messages", messageRoutes)
 
 // step40: after all the API endpoints , we make it ready for deployment using the below codes -

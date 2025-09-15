@@ -1,0 +1,7 @@
+Now lets test the chatPartners endpoint by sending a GET request on POSTMAN for the url endpoint : "http://localhost:3000/api/messages/chats" ; and then we can get the users with whom we have had conversation ever on the app.
+
+You can try sending message to differnt users and then run this GET request again to see all the users with which we have had chats will be shown up there.
+
+Now we can optimize out code in "message.route.js file" there by instead of having protectRoute to run first before calling the endpoint functions in all ; lets write router.use(protectRoute) before all of those 4 methods there , so that the protectRoute will run before all of the endpoints and pass the authorized logged in user details in the next() function i.e. to all the 4 methods written below it there.
+
+Also there : we can use the rate limiter arcjet method for arcjet protection there , so see that in the next steps there now.
