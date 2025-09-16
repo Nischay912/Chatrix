@@ -1,0 +1,15 @@
+set up tailwindcss in vite from documentation using the 3.4.17 version ; by selecting it from the top when we go on tailwindcss.com and set up following the steps there.
+
+now go on daisyUI.com and select the version 4 which we will be using to enhance th eusage of our tailwindCSS here ; go on the website > how to use > follow the steps > in : cd frontend > npm i -D daisyui@4.12.24 >paste the plugin given in documentation under tailwind.config.js file there along with the import statement there.
+
+then you can see on the daisy ui website how to use it using various codes there.
+
+now lets install "react-router" : React itself does not have any built-in way to handle page navigation (URLs, links, multiple views) : so : "react-router" helps you manage that — it decides which React component should show up when the browser’s URL changes ; This package helps us manage navigation and multiple pages inside a React single-page application ; Now when you click like : About, it loads the About Page without refreshing the browser — smooth navigation like a real app.
+
+So, in cd frontend > do : npm i react-router > now lets set up the application to ahve multiple pages like : signup page , login page , chat page , etc : so to do so we do -
+
+Go in : main.jsx and wrap the application with "BrowserRouter" there ; BrowserRouter → Wraps your app and listens to URL changes.
+
+Now create a folder for pages and create mulitple pages files there ; and initially put default boilerplate in each of them using : rafce method there.
+
+Then see the next steps in App.jsx file now there.

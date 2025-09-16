@@ -1,34 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// step316: type rafce > enter : and lets start to build the frontend of our application now ; but before that see the next steps in step317.txt file there.
+import React from 'react'
+import { Route, Routes } from 'react-router'
+import ChatPage from './pages/ChatPage'
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
+import { useAuthStore } from './store/useAuthStore'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  // step347: we can now destructure all the states and the functions using the the zustand store named as useAuthStore here below.
+  // const { authUser , isLoggedIn, login } = useAuthStore();
+
+  // step348: lets try to console log the authUser state here below , to show that we can use the states now here in this component directly.
+
+  // step349: we can see in frontend i.e. broswer's console that we can access and printed these values there ; so we can now easily access these state's values in our compontents directly now.
+
+  // step350: now we can use them inside any of other components like signup page , login page , chat page , etc. :  by just importing the states using the hook we made : const { authUser , isLoggedIn } = useAuthStore(); in all of them and can use them there directly now.
+
+  // step351: you can try it in those pages and after that see the next steps in useAuthStore.js file now there.
+  // console.log("Auth user:" , authUser);
+  // console.log("Is logged in:" , isLoggedIn);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+    // step323: now lets add a background here wrapping everything as we want this styled background to be present on all the pages we have in our application now.
+
+    // step324: lets make it take full height of device as its height using "min-h-screen" class here below.
+
+    // step325: also lets make it a flexbox here below so that the contents becomes fully centered in the screen and also have it with some padding and hide the overflow using overflow hidden.
+    <div className='min-h-screen bg-slate-900 relative flex justify-center items-center overflow-hidden p-4'>
+
+      {/* step326: now using AI generate some grid type bg and glow shapes i bg for all the pages for the app here below. */}
+
+      {/* step327: see the next steps in step328.txt file now there. */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f7ff10_1px,transparent_1px),linear-gradient(to_bottom,#00f7ff10_1px,transparent_1px)] bg-[size:20px_20px]"/>
+        <div className="absolute top-0 -left-4 w-96 h-96 bg-cyan-400 opacity-20 blur-[100px] rounded-full animate-pulse"/>
+        <div className="absolute bottom-0 -right-4 w-96 h-96 bg-pink-500 opacity-20 blur-[100px] rounded-full animate-pulse"/>
+        <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-purple-500 opacity-15 blur-[90px] rounded-full"/>
+
+        {/* step356: lets test the function "login" from the zustand store which will update the isLoggedIn state to true here below. */}
+        {/* <button onClick={login} className='z-10'>Login</button> */}
+
+        {/* step357: lets see the next steps in step358.txt file now there. */}
+
+    {/* // step318: now lets wrap the whole app with the Rout component here below , so that : we can have multiple pages inside our application ; so here we list all the routes that our app will support. */}
+    <Routes>
+      {/* step319: lets now put specific routes inside this now here below. */}
+
+      {/* step320: Each <Route> below now : defines a URL path and says which component should be shown when that URL is visited. */}
+
+      {/* step321: lets say when user visits "/" route , then we will show them the ChatPage.jsx component there to the user. */}
+
+      {/* step322: now we can check and see that if we go on "localhost:5173/" then we will see the content of the ChatPage.jsx component there , similarly if we go on "localhost:5173/login" then we will see the content of the LoginPage.jsx component there and so on. */}
+
+      <Route path="/" element = {<ChatPage />} />
+      <Route path="/login" element = {<LoginPage />} />
+      <Route path="/signup" element = {<SignUpPage />} />
+    </Routes>
+    </div>
   )
 }
 

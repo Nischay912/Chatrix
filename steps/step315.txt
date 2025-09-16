@@ -1,0 +1,5 @@
+Now lets start to work on frontend of our application.
+
+Open the terminal > cd frontend > npm run dev > currently it will be the basic vite app.
+
+Now we can delete the > App.css and assets from frontend folder for now and start off by clearing everything there and typing "rafce" in the App.jsx file there in the next steps see there now , now there.

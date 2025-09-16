@@ -1,0 +1,31 @@
+Now , we will install "zustand" which is a state management library for React ; it helps you store and share state (data) between multiple components without having to pass props manually.
+
+Without a state manager, you’d do “prop drilling” (passing data from parent → child → grandchild) ; Zustand fixes this by creating a global store that any component can use directly ; so It’s like a lighter, simpler alternative to Redux.
+
+So, in terminal > cd frontend > npm i zustand@5.0.3 : install it.
+
+Now , if we have a state in App.jsx file like : const[myName , setMyName] = useState("Nischay") : now if we want to use this state in all the pages written there in the App.jsx file.
+
+One way to do so is by sending the state as prop in each of the pages individually there like :
+
+<Route path="/" element = {<ChatPage myName = {myName}}
+<Route path="/login" element = {<LoginPage myName = {myName}}
+<Route path="/signup" element = {<SignUpPage myName = {myName}}
+
+; and to use them : go to the files of those pages like in : LoginPage.jsx file : and there and grab that prop sent in the (...) parameters bracket there , like shown below.
+
+function LoginPage(myName) : and now we can use it inside the function.
+
+But if we have another component inside this LoginPage component , like Form component below : and now if we want to pass the myName state to that component too , we will have to pass it as prop to that component too like below.
+
+function LoginPage(myName){
+    return <div>
+        <Form myName={myName} />
+    </div>
+}
+
+; this becomes annoying to do same thing again and again here ; so instead of doing this , what we can do is that -
+
+We can in App.jsx go and say that : instead of creating the state there and then passing it in different components individually there ; we can instead create that STATE using "ZUSTAND STORE" .
+
+So , for this go and see the next steps in the useAuthStore.js file inside the "store" folder there now.
