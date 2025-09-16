@@ -1,0 +1,3 @@
+Now if we go on homepage : localhost:5173 > we can visit it even if we are still unauthenticated ; so it should immediately take us to the login page if we are unauthenticated and we try to go on this home page of our app there ; so if we are unauthenticated and try to visit the homepage by entering the url on the browser there , then we should be automatically be navigated back to the "login" page , since we are still unauthenticated there.
+
+So, see the next steps in the useAuthStore.js file now there.

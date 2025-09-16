@@ -1,0 +1,13 @@
+So , lets go to : cd .. > to come to outermost path and then do : cd backend > npm i cors > and then go in "server.js" and do > app.use(cors({origin: ENV.CLIENT_URL, credentials: true})) > this allows frontend to send cookies to the backend.
+
+So, now in dev : http://localhost:5173 and in production : https://yourfrontend.com : can call the backend ; and the credentials:true : ensures cookies and all to be able to be sent across ports too.
+
+So, overall : this > Allow requests from the frontend at ENV.CLIENT_URL, and let those requests include cookies for authentication.
+
+Now go and run the backend with npm run dev & if error comes > go in : Application > cookies > localhost:5173 > scroll to bottom and delete the "jwt" from there > now no error would be there ; its because : Maybe you logged in earlier, backend issued a JWT, but now that token has expired ; The cookie is still stored in the browser, so every request sends this expired/invalid token → backend rejects → error ; When you delete the jwt cookie from Application > Cookies > localhost:5173, the browser no longer sends the stale/expired token with requests ; Next time you try logging in → backend generates a fresh JWT and stores it in a new cookie ; Now requests are sent with a valid token → error disappears.
+
+Now , run in two powershells : in one cd frontend and do npm run dev > in other cd backend and do : npm run dev ; its not production , so we dont have same url here for both frontend and backend ; so lets run both frontend and backend now for application to run and go on localhost:5173 and see the console now for our checks there.
+
+So , now we can see in console > authUser is null since the user has not been authenticated yet.
+
+See the next steps in App.jsx file there.

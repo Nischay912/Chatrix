@@ -1,0 +1,3 @@
+Now , lets check the signup page : when we open the database ; there we can see the form submitted in the users collection ther and also on the home page it redirects us to ; and there if we go in inspect > application > cookies > localhost:5173 > we can see the "jwt" token assigned upon authentication in the browser too there to the digned up user there ; if we delete that "jwt" cookie from the browser , we will automatically log out , as the "jwt" token by rule keeps us logged in and authenticated on the website there.
+
+Now , see the next steps in the SignUpPage.jsx file now there.
