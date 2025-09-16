@@ -19,6 +19,9 @@ export const useAuthStore = create((set) => ({
     // step397: lets define the isSigningUp variable initially be false.
     isSigningUp: false,
 
+    // step445: now we will use a isLoggingIn state to check if we are logging in now or not.
+    isLoggingIn: false,
+
     // step362: now lets create a function to check the authenticity of the user here below.
     checkAuth: async() =>{
         try {
@@ -75,6 +78,51 @@ export const useAuthStore = create((set) => ({
 
         // step400: and after the try-catch block , we can set the isSigningUp state to false now as signing up is done now.
         set({isSigningUp: false})
+    },
+
+    // step443: now similar to the signup function , we can create a login function here below for the login page too.
+
+    // step444: now we will have the "data" as the email and password which will be recieved by this function here below.
+    login: async(data) => {
+        // step446: initially we are logging in now , so set the isLoggingIn state to true now.
+        set({isLoggingIn: true})        
+
+        // step447: rest below similar to the signup function written above.
+
+        // step448: see the next steps now in LoginPage.jsx file now there.
+        try {
+            const res = await axiosInstance.post("/auth/login" , data)
+            set({authUser: res.data})
+            toast.success("Logged in successfully")
+
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+        finally{
+            set({isLoggingIn: false})
+        }
+    },
+
+    // step454: lets make the logout function here below.
+    logout: async(data) => {
+        try{
+            // step455: logout occurs very fast so no need to have isLoggingOut state for this here.
+
+            // step456: lets make a post request now to the logout endpoint that will send the jwt token or cookie of the current logged in user to make the backend log out the user at the logout endpoint.
+            await axiosInstance.post("/auth/logout")
+
+            // step457: also we remove the current user from the authUser state here below , making it null again as user is logged out now.
+            set({authUser: null})
+
+            // step458: now show toast here below.
+
+            // step459: see the next steps in the ChatPage.jsx file now there.
+            toast.success("Logged out successfully")
+        }
+        catch{
+            toast.error("Error in logging out")
+            console.log("Logout error" , error)
+        }
     }
 
     // step343: now we can create all the states here below.
