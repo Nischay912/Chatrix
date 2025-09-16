@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@property --border-angle {
+    inherits: false;
+    initial-value: 0deg;
+    syntax: '<angle>';
+}
+
+/* Input field styling */
+.input {
+  @apply w-full                 /* Full width input */
+  bg-slate-800/50               /* Semi-transparent dark slate background */
+  border border-slate-700       /* Border with dark slate color */
+  rounded-lg                    /* Rounded corners */
+  py-2 pl-10 pr-4               /* Padding: top/bottom = 0.5rem, left = 2.5rem (for icon), right = 1rem */
+  text-slate-200                /* Input text color */
+  placeholder-slate-400         /* Placeholder text color */
+  focus:ring-2 focus:ring-cyan-500 /* Cyan ring on focus */
+  focus:border-transparent;     /* Hide default border on focus */
+}
+
+/* Icon inside input field */
+.auth-input-icon {
+  @apply absolute               /* Position absolutely inside relative parent */
+  left-3                         /* 0.75rem from left */
+  top-1/2                        /* Vertically center relative to parent */
+  -translate-y-1/2               /* Adjust for exact vertical centering */
+  text-slate-400                 /* Icon color */
+  size-5;                        /* Width & height of icon (1.25rem) */
+}
+
+/* Label above input fields */
+.auth-input-label {
+  @apply block                   /* Display as block */
+  text-sm                         /* Small font size */
+  font-medium                      /* Medium font weight */
+  text-slate-300                  /* Light slate color for text */
+  mb-2;                           /* Margin bottom 0.5rem */
+}
+
+/* Badge for showing info/status */
+.auth-badge {
+  @apply inline-flex              /* Flex for content alignment */
+  items-center                    /* Center items vertically */
+  px-3 py-1                       /* Padding: x=0.75rem, y=0.25rem */
+  text-xs                          /* Extra small text */
+  font-medium                      /* Medium font weight */
+  rounded-full                     /* Full rounded pill shape */
+  bg-cyan-500/20                   /* Semi-transparent cyan background */
+  text-cyan-300;                   /* Cyan text */
+}
+
+/* Button styling */
+.auth-btn {
+  @apply w-full                    /* Full width button */
+  bg-cyan-500                      /* Cyan background */
+  text-white                        /* White text */
+  rounded-lg                        /* Rounded corners */
+  py-2.5                             /* Padding top & bottom 0.625rem */
+  font-medium                        /* Medium font weight */
+  hover:bg-cyan-600                  /* Darker cyan on hover */
+  focus:ring-2 focus:ring-cyan-500; /* Cyan ring on focus */
+}
+
+/* Link styling */
+.auth-link {
+  @apply px-4 py-2                 /* Padding: x=1rem, y=0.5rem */
+  inline-block                      /* Display inline but respect padding */
+  bg-cyan-500/10                    /* Light cyan background */
+  rounded-lg                        /* Rounded corners */
+  text-cyan-400                      /* Cyan text */
+  hover:text-cyan-500                /* Darker cyan on hover */
+  text-sm                            /* Small font size */
+  transition-colors;                 /* Smooth color transition on hover */
+}

@@ -1,0 +1,3 @@
+Now if we try to go on "localhost:5173" we are automcatically being redirected to "/login" endpoint as user is not yet authenticated.
+
+Now we can put some loading check to be shown when being redirected to some other page there , so see the next steps in App.jsx file now there.

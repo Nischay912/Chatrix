@@ -26,6 +26,7 @@ import { connectDB } from './lib/db.js'
 import { ENV } from './lib/env.js'
 
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 
 // step5: then we create an instance of express below.
 const app = express()
@@ -47,6 +48,7 @@ const PORT = ENV.PORT || 3000
 
 // step67: see next steps in auth.controller.js file now there.
 app.use(express.json())
+app.use(cors({origin: ENV.CLIENT_URL, credentials: true}))
 
 // step179: let suse the cookie-parser package to help us get access of the cookies sent by the user there ; so we parse the cookie into a JSON object using this package.
 

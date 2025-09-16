@@ -1,0 +1,1 @@
+Now lets do > cd frontend > npm i react-hot-toast > Go in App.jsx file now > Put "<Toaster />" ther after the routes > also write the import statement on top there for it > now you can use the toast back in next steps in the useAuthStore.js file there now.
