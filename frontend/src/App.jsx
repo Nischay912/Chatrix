@@ -21,7 +21,7 @@ const App = () => {
   // step374: now lets console log the authUser state here below to check if the user is authenticated or not ; as it will be "null" if user is not authenticated ; else will have the user object in it.
 
   // step375: to run all this ensure to do npm run dev in both "cd frontend" and "backend" as well but we will get CORS error as the backend and frontend are at different PORTS , so the CORS policy prevents sending request to different PORTS ; so for that see the steps in step376.txt file now there.
-  console.log("Auth user:" , authUser);
+  // console.log("Auth user:" , authUser);
 
   // step383: now if the checking is currently in progress , we can show a Page Loader Component here below.
 

@@ -35,7 +35,7 @@ const aj = arcjet({
     // step220: using slidingWindow instead of tokenBucket here now as the Rate Liminting Algorithm based on time now.
     slidingWindow({
       mode: "LIVE",
-      max:5, // 100 requests per minute
+      max:100, // 100 requests per minute
       interval: 60, // 60 seconds i.e. 1 minute : so allowing 100 request per minute
     }),
   ],

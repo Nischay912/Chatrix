@@ -22,6 +22,9 @@ export const useAuthStore = create((set) => ({
     // step445: now we will use a isLoggingIn state to check if we are logging in now or not.
     isLoggingIn: false,
 
+    // step553:now lets make a state to control the laoder to show when uploading the profile picture.
+    isUploadingProfile: false,
+
     // step362: now lets create a function to check the authenticity of the user here below.
     checkAuth: async() =>{
         try {
@@ -122,6 +125,32 @@ export const useAuthStore = create((set) => ({
         catch{
             toast.error("Error in logging out")
             console.log("Logout error" , error)
+        }
+    },
+
+    // step545: now we need to make the profile url to also be updated to cloudinary ; so let smake a method to call our backend and do so ; so it will be getting some data as input , which will actually be the profile picturethat user wants to upload.
+    updateProfile: async(data) =>{
+        // step554: lets make the isUpdatingProfile state to true now as we are updating the profile now.
+        set({isUpdatingProfile: true})
+        try {
+            // step546: so lets send the put request to send the profile picture data to the backend ; its PUT nad not POST because in the routes folde rof backend also we had PUT request for updating the profile picture ; as for update we generally use PUT request and not POST request.
+            const res = await axiosInstance.put("/auth/update-profile" , data)
+
+            // step547: now lets set the authenticated user to the response we recieve back from the backend here below with the updated profile picture url.
+            set({authUser: res.data})
+
+            // step548: lets show some toast like here below.
+
+            // step549: see the next steps in the ProfileHeader.jsx file now there.
+            toast.success("Profile picture updated successfully")
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+        // step555: and after the try-catch block , we can set the isUpdatingProfile state to false now as updating the profile is done now.
+
+        // step556: see the next steps in the ProfileHeader.jsx file now there.
+        finally{
+            set({isUpdatingProfile: false})
         }
     }
 
