@@ -1,0 +1,5 @@
+Now we can commit our changes by doing : ctrl+shift+P > create new branch > name : chatpage-layout > commit with message : chatpage layout built > publish the branch > then on github merge the pull request.
+
+Finally come back here on vs code : go on bottom left branch name > click > click to come back to master > click on sync OR the refresh icon on bottom left to sync all changes and commits to the main "master" branch ; so now we can see all the updated changes in the "master" branch finally now thus there/thus here.
+
+See the next steps in "ProfileHeader.jsx" file now there.

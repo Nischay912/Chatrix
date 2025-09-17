@@ -1,0 +1,7 @@
+So , in the chatPage we will be having many states like : "active tab" which will either be the chats tab ir the contacts tab ; so if we click on chats it will show all the chats we have and same for contacts section.
+
+Then we will also have another state to store the contacts coming from database ; and same for the chats.
+
+We will also need a sound button to enable or disable ; and then one more state , if we have any selected conversation to be displayed there ; so if click a user ; UI will update and we can see the messages between the logged-in user and that clicked user.
+
+See the next steps in useChatStore.js file which will be another zustand store ; where we will be keeping the states to be used in the ChatPage.jsx file now.
