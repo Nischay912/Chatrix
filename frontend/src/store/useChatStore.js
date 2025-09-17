@@ -27,7 +27,9 @@ export const useChatStore = create((set , get) => ({
     // step473: now we will also have a state for whether the sound is enabled or not ; we will get its value from localStorage , so that : even if user refreshes the page , his choice is still locked on.
 
     // step474: so if the localStorage has a value of "true" , means the condition written below is true ,so then we will set this state to true too ; else to false.
-    soundEnabled: localStorage.getItem("isSoundEnabled") === "true",
+
+    // We must parse to JSON as by default its string but we are doing its === to a boolean value so string can't be comapred to boolean thats why we have to parse it here below.
+    isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled")) === true,
 
     // step475: now lets make some functions here too below.
 
@@ -35,8 +37,8 @@ export const useChatStore = create((set , get) => ({
     toggleSound: () => {
 
         // step477: "get" is used to get the latest value of a state ; so here below as soon as toggle method is called ; we update the local storage to the opposite of current sound value & also update the state value to that too using "set" in the next line there below.
-        localStorage.setItem("isSoundEnabled" , !get().soundEnabled)
-        set({issoundEnabled: !get().soundEnabled})
+        localStorage.setItem("isSoundEnabled" , !get().isSoundEnabled)
+        set({isSoundEnabled: !get().isSoundEnabled})
     },
 
     // step478: now in the setActiveTab method user will send either chats or contacts tab as input parameter which will be used to update the activeTab state.
