@@ -87,5 +87,28 @@ export const useChatStore = create((set , get) => ({
         finally{
             set({isUsersLoading: false});
         }
+    },
+
+    // step583: now lets make the function to get the messages in the right section of chat page , based on the clicked user there.
+    getMessagesByUserId: async(userId) =>{
+        // step584: first lets show the loading state here below as we are getting the messages now.
+        set({isMessagesLoading: true});
+        try {
+            // step586: lets make a get request to the endpoint to get the messages now here below.
+            const res = await axiosInstance.get(`/messages/${userId}`);
+            // step587: now we will set the messages array to whatever we get from the response here below i.e. all the messages between the logged in user and the clicked user in the database.
+            set({messages: res.data});
+        } catch (error) {
+            // step588: we can do error toast to be shwon here below , using optional chaining "?." syntax as its better than normal "." syntax because : if the error.response is undefined , then we will not get an error in the console ; so ?. ensures that if the error.response is undefined , then we will not get an error in the console.
+
+            // step589: using conditional rendering here below to show the error toast if the error response is not undefined , otherwise we will show the default error message here below.
+
+            // step590: see the next steps in the ChatContainer.jsx file now there.
+            toast.error(error?.response?.data?.message || "Something went wrong");
+        }
+        finally{
+            // step585: now lets hide the loading state here below as we have got the messages now.
+            set({isMessagesLoading: false});
+        }
     }
 }))

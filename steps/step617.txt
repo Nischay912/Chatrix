@@ -1,0 +1,3 @@
+Now we will use the Daisy UI website to get the JSX code for chat bubble components ; which has "chat-start" which means message recieved from reciever and "chat-end" for message sent by us.
+
+So, lets use it in next steps in ChatContainer.jsx file now there.
