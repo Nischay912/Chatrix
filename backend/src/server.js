@@ -27,9 +27,12 @@ import { ENV } from './lib/env.js'
 
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import {app, server} from './lib/socket.js'
 
 // step5: then we create an instance of express below.
-const app = express()
+
+// step741: delete the below app now as we are now using socket server here.
+// const app = express()
 
 // step38: we first write this below ; path.resolve() returns the absolute path of the current working directory
 const __dirname = path.resolve()
@@ -125,7 +128,12 @@ if(ENV.NODE_ENV === "production") {
 
 // step54: now lets call the function we created once we start listening our application.
 
-app.listen(PORT, () => {
+// step742: and now we will listen for socket server instead of express server app here below.
+
+// step743: see the next steps in step744.txt file now there.
+
+// app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log("Server is running on port: " + PORT);
 
     // step55: calling the fucntion created in "lib" folder there , thats imported and being used now here below.

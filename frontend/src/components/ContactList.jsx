@@ -2,11 +2,13 @@ import React from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 import { useEffect } from 'react'
 import UsersLoadingSkeleton from './UsersLoadingSkeleton.jsx'
+import { useAuthStore } from '../store/useAuthStore.js'
 
 function ContactList() {
 
   // step577: lets try to get all the required states here below from the useChatStore hook.
   const {getAllContacts, allContacts , setSelectedUser, isUsersLoading} = useChatStore();
+  const {onlineUsers} = useAuthStore();
 
   // step578: same as done in ChatsList.jsx file now , do here too now below.
   useEffect(() => {
@@ -29,7 +31,12 @@ function ContactList() {
           onClick={() => setSelectedUser(contact)}
         >
           <div className="flex items-center gap-3">
-            <div className="avatar online">
+            {/* <div className="avatar online"> */}
+
+            {/* step769: made same thing here too below , just added contact instead of chat now here below ;*/}
+
+            {/* step770: and do same in ChatHeader.jsx too to show online -offline toggle in avatar there too ; so see the next steps there now. */}
+            <div className={`avatar ${onlineUsers.includes(contact._id) ? "online" : "offline"}`}>
               <div className="size-12 rounded-full">
                 <img src={contact.profilePic || "/avatar.png"} alt={contact.fullName} />
               </div>

@@ -1,0 +1,1 @@
+Now install in frontend : npm i socket.io-client@4.8.1 > then see the next steps in the frontend in the useAuthStore.js file now there.

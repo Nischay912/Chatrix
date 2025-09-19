@@ -4,11 +4,15 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
+import { io } from "socket.io-client";
+
+// step750: lets create a base url variable here below ; same as done in and explained in "axios.js" file earlier there.
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
 
 //  step341: now lets create a hook to use the zustand store here below ; just like we ahve hooks called useState and all.
 
 // step342: set is a function provided by Zustand to update the state inside the store (like React’s setState we have like setName and all) ; The function returns an object that contains your initial state and actions (functions).
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create((set,get) => ({
 
     // step360: lets create a state for the authenticated users , which will initially be null ; once the user has been checked if he is authenticated , then we will update this state with that user's object later there.
     authUser: null,
@@ -25,6 +29,12 @@ export const useAuthStore = create((set) => ({
     // step553:now lets make a state to control the laoder to show when uploading the profile picture.
     isUploadingProfile: false,
 
+    // step745: lets create a state called socket first here below.
+    socekt:null,
+
+    // onlineUsers state created to be used later.
+    onlineUsers: [],
+
     // step362: now lets create a function to check the authenticity of the user here below.
     checkAuth: async() =>{
         try {
@@ -38,6 +48,8 @@ export const useAuthStore = create((set) => ({
 
             // step366: so lets set the authUser state to that response here below ; and also make the checkingState to false as checking for authenticity is done now.
             set({authUser: res.data})
+
+            get().connectSocket()
 
         } catch (error) {
             // step367: now if there comes any error , we can console log it here below.
@@ -72,6 +84,8 @@ export const useAuthStore = create((set) => ({
             // step405: now lets use the toast here below to show a success message to the user that he has signed up successfully.
             toast.success("Account created successfully")
 
+            get().connectSocket()
+
         } catch (error) {
             // step406: now here in catch section , lets put a toast for the error message here below ; using the below syntax by which we can access the error in axios.
             toast.error(error.response.data.message)
@@ -98,6 +112,11 @@ export const useAuthStore = create((set) => ({
             set({authUser: res.data})
             toast.success("Logged in successfully")
 
+            // step761: now once we login and show the success toast , we can call the connectSocket function here below using the get() method , because to call a function of a store , we need to use the get() method.
+
+            // step762: same do in signup too there and also for checkAuth because even if user refresh the page , and by cookies he is still authenticated , the page should still show if online , so use it there too.
+            get().connectSocket()
+
         } catch (error) {
             toast.error(error.response.data.message)
         }
@@ -121,6 +140,11 @@ export const useAuthStore = create((set) => ({
 
             // step459: see the next steps in the ChatPage.jsx file now there.
             toast.success("Logged out successfully")
+
+            // step763: after logout , we can call the disconnectSocket function here below using the get() method , because to call a function of a store , we need to use the get() method.
+
+            // step764: see the next steps in ChatsList.jsx file now there in frontend.
+            get().disconnectSocket()
         }
         catch{
             toast.error("Error in logging out")
@@ -152,6 +176,44 @@ export const useAuthStore = create((set) => ({
         finally{
             set({isUpdatingProfile: false})
         }
+    },
+
+    // step746: now we will have a function here below to connect to our socket server here below ; and we will be calling this whenevr we signup or login n ; so that it triggers and tells we have come online-offline.
+    connectSocket: () => {
+        // step747: first get the current state value for authenticated user from the state above.
+        const authUser = get()
+        // step748: if authenticated user not exist , then we can just return out of this function here below ; and no need to connect to the socket server now since the user is not logged in now i.e. since the user is not authenticated now.
+
+        // step749: also in || part we say that if we are already connected , just return and don't try to connect again here below.
+        if(!authUser || get().socket?.connected) return
+
+        // step751: now lets create the socket connection here below ; so we will be connecting to the base url i.e. the backend and ensure that cookies are sent along with the handshake request so your socket authentication middleware can verify the user. 
+        const socket = io(BASE_URL, {withCredentials: true})
+
+        // step752: now we can connect to the socket server here below and then set the socket state with this socket connection here below.
+        socket.connect()
+        set({socket: socket})
+
+        // step753: now we will be listening for events coming from backend via socket server here below.
+        // step754: and as seen earlier , we use "socket.on" to listen for events using their name.
+
+        // step755: so lets get the online user ids here below using the "getOnlineUsers" event name.
+        socket.on("getOnlineUsers" , (userIds) => {
+            // step756: now we can update the online users list here below.
+            set({onlineUsers: userIds})
+        })
+    },
+
+    // step757: now lets make another method here below to disconnect from the socket server.
+    disconnectSocket: () => {
+        // step758: first get the current state value for socket from the state above and then call the disconnect method on it, so that we can disconnect from the socket server here below ; so by disconnect() , we Calls Socket.IO’s .disconnect() method on the client & This cleanly closes the WebSocket connection to the server ; On the server side, this will trigger the disconnect event for that socket.
+    
+        // get().socket?.disconnect()
+
+        // step759: but to be more optimized lets call the disonnect , only if the socket is currently connected , else no need to call it obviously here below.
+
+        // step760: now when we login we will call the connectSocket() method , so when we logout we will call the disconnectSocket() method here below.
+        if(get().socket?.connected) get().socket?.disconnect()
     }
 
     // step343: now we can create all the states here below.
