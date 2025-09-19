@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 import { XIcon } from 'lucide-react'
+import { useAuthStore } from '../store/useAuthStore.js'
 
 function ChatHeader() {
 
   // step596: lets first try to get all the required states here below from the useChatStore hook.
   const {selectedUser , setSelectedUser} = useChatStore();
+
+  // step771: now we again try to get the onlineUsers state here below from the useAuthStore hook and also for the selected user whose message section has been selected , we get to know if he is online or not in the variable below.
+  const {onlineUsers} = useAuthStore();
+  const isOnline = onlineUsers.includes(selectedUser._id);
 
     // step605: now we want to also close the chat when user presses escape key ; so lets write the useEffect here below.
     useEffect(() => {
@@ -30,7 +35,11 @@ function ChatHeader() {
         {/* step599: now lets make the components of the flexbox here below. */}
         <div className="flex items-center space-x-3">
             {/* step600: now lets make the profile pic and name here below ; the avatar is made using the daisyUI class here below. */}
-            <div className="avatar online">
+
+            {/* <div className="avatar online"> */}
+
+            {/* step772: now based on whether the selected user is online or not , we will add the online or offline class here below. */}
+            <div className={`avatar ${isOnline ? "online" : "offline"}`}>
                 <div className='w-12 rounded-full'>
                     {/* step601: so we will have the selectedUser's profile pic here below ; and if its not available we will have the default profile pic. */}
                     <img src={selectedUser.profilePic || "/avatar.png"} alt={selectedUser.fullName} />
@@ -39,7 +48,11 @@ function ChatHeader() {
             {/* step602: now lets make the username and online status here below. */}
             <div>
                 <h3 className='text-slate-200 font-medium'>{selectedUser.fullName}</h3>
-                <p className='text-slate-400 text-sm'>Online</p>
+
+                {/* step774: also the text shown here below will be based on whether the selected user is online or not. */}
+
+                {/* step775: see the next steps in step776.txt file now there. */}
+                <p className='text-slate-400 text-sm'>{isOnline ? "Online" : "Offline"}</p>
             </div>
         </div>
 

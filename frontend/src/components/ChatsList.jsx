@@ -2,10 +2,14 @@ import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 import UsersLoadingSkeleton from './UsersLoadingSkeleton.jsx';
 import NoChatsFound from './NoChatsFound.jsx';
+import { useAuthStore } from '../store/useAuthStore.js';
 
 function ChatsList() {
   // step566: lets try to get all the required states here below from the useChatStore hook.
   const {getChatPartners , chats , isUsersLoading , setSelectedUser} = useChatStore();
+
+  // step765: lets import the online users from auth store now.
+  const {onlineUsers} = useAuthStore();
 
   // step567: now we will call the getMyChatPartners function here below to get the chat partners as soon as the component mounts and also if and when the chat partners change.
   useEffect(() => {
@@ -35,7 +39,15 @@ function ChatsList() {
           <div className="flex items-center gap-3">
 
             {/* step574: lets use the daisy ui to show the avatar here below with the online status too here below. */}
-            <div className="avatar online">
+
+            {/* step766: now lets add online or offline class of daisyUI dynamically here below. */}
+            {/* <div className="avatar online"> */}
+
+            {/* step767: so we will always have the avatar class there below ; but the online or offline class will be given based on that if the onlineUsers array contains the chat id or not. */}
+
+            {/* step768: same do in ContactList.jsx file too there ; so see the next steps there now.*/}
+            <div className={`avatar ${onlineUsers.includes(chat._id) ? "online" : "offline"}`}>
+
               {/* step575: now lets also show the profile pic which if is null , then we will show the default avatar there and also then show its username here below. */}
 
               {/* step576: see the next steps in ContactsList.jsx file now there. */}

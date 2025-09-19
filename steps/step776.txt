@@ -1,0 +1,7 @@
+Now we can open a window in chrom icognito for localhost:5173 and put edge and chrome side by side and see users login to see online in one another's window and it becomes offline when they log out too there.
+
+Now we can commit our changes by doing : ctrl+shift+P > create new branch > name : online-users-setup > commit with message : online-offline functionality done and implemented > publish the branch > then on github merge the pull request.
+
+Finally come back here on vs code : go on bottom left branch name > click > click to come back to master > click on sync OR the refresh icon on bottom left to sync all changes and commits to the main "master" branch ; so now we can see all the updated changes in the "master" branch finally now thus there/thus here.
+
+See the next steps in "socket.js" file in the "lib" folder of backend now there.

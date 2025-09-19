@@ -1,0 +1,35 @@
+Now other online users were not able to see the messages sent in real time but will have to refresh the page to see it everytime ; so lets use Socket.IO to solve this issue now.
+
+Currently in our backend , we have REST API with Express which handles HHTT request thats helping us to update our profile , send messages , save them to our database and even can fetch them ; but now we want to make it work in real time by adding a Socket Server.
+
+So, we will keep the current content inside REST API as it is for now & on top of that we will introduce this SocketIO Server which will give us "real-time features" like the online users and real-time messages.
+
+So, if 2 person are communicating to each other in real time ; we have a Socket server in middle , which takes message from 1st and sends to 2nd person ; so the 2nd person doesn't even requested the serevr , but just gets the real time messages sent to him ; so without refreshing the page i.e. without requesting anything , the person2 got the incoming messages using the Socket server in middle.
+
+So, we can listen for events in the frontend and also in the backend using Socket Server here.
+
+-----------------------------------------------------------------------------
+
+What is SocketIO?
+
+- Socket.IO is a powerful real-time communication library for web applications.
+- It enables instant , bi-directional communication between web clients and servers.
+- It allows data to be pushed to clients in real-time , without the need for the client to request it.
+
+Why SocketIO?
+
+- Simplifies building a real-time application.
+- It handles complex networking issues behind the scenes.
+- which allows developers to focus on building fetaures rather than managing low-level communication protocols.
+
+Where can we use SocketIO?
+
+- To build : Chat App , Real time dashboards , Collaborative editing tools , Real-time games , etc.
+
+We'll be using two packages for using this SocketIO Server now.
+
+On backend : cd backend > npm i socket.io@4.8.1
+On frontend : cd frontend > npm i socket.io-client
+
+Lets first install it in backend and then see the next steps in "socket.js" file in "lib" folder of backend there.
+
