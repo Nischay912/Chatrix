@@ -38,7 +38,16 @@ const io = new Server(server, {
 // step715: see the next steps in "socket.auth.middleware.js" file now there.
 io.use(socketAuthMiddleware);
 
-// step728: we whave to store the online users too ; so lets create an object which will store all the online users in the format : {userId: socketId}
+// step777: now lets create a function to check if a user is online or not here below ; we had userSocketMap which contained all the online users in the format : {userId: socketId} ; so we are accessing the socketId of the user whom we want to send message to in real-time using socket server ; so if reciever is online , her can instantly receive the message by below code , if he is offline no need to worry as later when he comes onine , page will have been refreshed so anyways he will receive the message by the time he comes online.
+
+// step778: see the next steps in messageController.js file now there.
+export function getRecieverSocketId(userId){
+    return userSocketMap[userId];
+}
+
+// step728: we have to store the online users too ; so lets create an object which will store all the online users in the format : {userId: socketId}
+
+// step729: see the next steps in messageController.js file now there.
 const userSocketMap = {};
 
 // step729: when a user connects to this socket server , we can listen to it using the below code ; and then call the callback method below too.

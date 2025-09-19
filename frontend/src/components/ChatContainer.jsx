@@ -11,7 +11,7 @@ function ChatContainer() {
 
   // step591: first lets try to get all the required states here below from the useChatStore hook and the useAuthStore hook.
   const {authUser} = useAuthStore();
-  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } = useChatStore();
+  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading , subscribeToMessages, unsubscribeFromMessages } = useChatStore();
 
   // step696: lets create the reference of messageEndRef here below using the useRef hook here below.
   const messageEndRef = useRef(null);
@@ -21,7 +21,16 @@ function ChatContainer() {
 
     // step593: make sure to run this only if the selectedUser is not null here below i.e. initially when page is refreshed , no user is clicked and selected , so in that case we don't want to get the messages here below , so run this only if the selectedUser is not null.
     if(selectedUser) getMessagesByUserId(selectedUser._id);
-  }, [selectedUser , getMessagesByUserId]);
+
+    // step797: lets call the subscribeToMessages() method here below to start listening for new messages when the selectedUser changes ; so here this useEffect : manage socket listeners automatically whenever the selected user changes, and to clean up old listeners to prevent duplicates and memory issues ; so when a new user is selected , we will be listening for new messages in real-time there too now using the socket server function created earlier , thus here below.
+    subscribeToMessages();
+
+    // step798: now for cleanup reasons like told in steps 794 and 795 there : add the unsubscribeFromMessages() method here below to stop listening for new messages when the selectedUser changes.
+
+    // step799: see the next steps in useChatStore.js file now there.
+    return () => unsubscribeFromMessages();
+
+  }, [selectedUser , getMessagesByUserId, subscribeToMessages, unsubscribeFromMessages]);
 
   // step697: now this code below will make the chat scroll down to the bottom when a new message is sent here below.
   useEffect(() => {

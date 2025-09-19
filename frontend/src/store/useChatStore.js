@@ -174,5 +174,59 @@ export const useChatStore = create((set , get) => ({
             // step658: see the next steps in MessageInput.jsx file now there.
             toast.error(error.response?.data?.message || "Something went wrong")
         }
-    }
+    },
+
+    // step784: now lets create function here below to listen any incoming messages here below.
+    subscribeToMessages: () => {
+        const {selectedUser, isSoundEnabled} = get();
+
+        // step785: if there is no selected users , just return as if no user is selected , why will we show the incoming messages there.
+        if(!selectedUser) return;
+
+        // step786: but if we select a user ,we should update the message section immediately on the screen there.
+
+        // step787: now get the socket connection here below.
+        const socket = useAuthStore.getState().socket;
+
+        // step788: now lets listen to the "newMessage" event here below using the socket ; and we will get the newMessage from mesage.controller.js that we had sent when making this event there in message.controller.js file there.
+        socket.on("newMessage" , (newMessage)=>{
+
+            // step800: now lets create a variable to check if message is sent by the selected user or not here below ; i.e. by the user whose chat we have opened on the app by selecting that user there.
+            const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
+
+            // step801: so now if the message is not sent by the selected user then we will return here below as then no need to do anything ; ITS BECAUSE THE ISSUE HERE IS THAT PROBLEM IS COMING THAT IF WE HAVE THREE USERS IN CHATS SECTION , USER1, USER2 AND USER3 : IF WE HAVE TWO LAPTOPS IN ONE WE HAVE USER1 AS SENDER , WHO SENT MESSAGE TO USER2 , BUT USER2 IS READING MESSAGES OF USER3 (USER3 IS OFFLINE CURRENTLY) ; SO IT WILL SHOW THERE WHOEVER CHAT WE HAVE OPENED LIKE USER3 CHAT WILL SHOW THE RECIEVED MESSAGE BUT IT WAS SENT BY USER1 ; SO THIS IS THE ERROR ; FOR THAT ONLY WE WILL NOT UPDATE THE UI INSTANTLY IN REAL TIME IF THE MESSAGE IS NOT SENT BY THE SELECTED USER , SO THAT LATER WHEN USER1'S CHAT WILL BE OPENED THE NEW MESSAGE WILL BE VISIBLE THERE NOW ; AND NOT IN ANY OTHER USER'S CHAT WHOSE CHATBOX WE HAVE JUST OPENED ; THATS WHY WE HAVW TH EBELOW CODE WRITTEN HERE BELOW.
+
+            // step802: see the next steps in step803.txt file now there.
+            if(!isMessageSentFromSelectedUser) return;
+
+            // step789: so lets update the message state here below with the new message received here below.
+
+            // step790: lets first get the current messages state here below.
+            const currentMessages = get().messages;
+
+            // step791:and then update the message state here below with the new message received here below ; "..." used so that it maintains all current messages first and add the new message at the end here below.
+            set({messages: [...currentMessages , newMessage]})
+
+            // step792: now if sound is enabled , we will play a notification sound here below and log an error if it fails to play.
+            if(isSoundEnabled){
+
+                // step795: lets import the notification sound here below.
+                const notificationSound = new Audio("/sounds/notification.mp3");
+
+                // step793: as always first reset the notification sound everytime for new message from the start so that it doesn;t plays from where it stopped last time , but rather from the beginning here below.
+                notificationSound.currentTime = 0;
+                notificationSound.play().catch((e) => console.log("Audio playing failed: ",e));
+            }
+        })
+    },
+
+    // step794: now lets make the unsubscribe function here below ; its needed because : f you don’t remove old listeners, each re-entry adds duplicate listeners—causing repeated messages in UI and wasted memory/performance ; The issue will be duplicate messages showing in chat and unnecessary memory/performance usage.
+    unsubscribeFromMessages: () => {
+        const socket = useAuthStore.getState().socket;
+
+        // step795: socket.off("newMessage") → detaches the previously attached event listener.
+
+        // step796: now see the next steps in chatContainer.jsx file now there.
+        socket.off("newMessage");
+    },
 }))

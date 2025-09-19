@@ -2,6 +2,7 @@
 import Message from '../models/Message.js'
 import User from '../models/User.js'
 import cloudinary from '../lib/cloudinary.js'
+import { getRecieverSocketId, io } from '../lib/socket.js';
 
 // step260: lets create the function to get all contacts first here below.
 export const getAllContacts = async(req, res) => {
@@ -106,6 +107,22 @@ export const sendMessage = async(req, res) => {
 
         // step288: finally lets save the above created document to the database here below ; so the below code : Saves the new message document into MongoDB inside the messages collection.
         await newMessage.save();
+
+        // step779: now lets get the recieverSocketId using the method we just created in the previous step here below ; to get the socketId of the reciever user ; and null if user is offline.
+        const recieverSocketId = getRecieverSocketId(recieverId);
+
+        // step780: if the recieverSocketId is found , it means user is online, and so we can send an event using "io" to the reciever user here below ; receiver is online → you can deliver the message in real-time using Socket.IO ; If no → receiver is offline → message still gets stored in MongoDB, but no real-time delivery happens. (Later the frontend can fetch the stored message via getMessagesByUserId.)
+        if(recieverSocketId){
+
+            // io.emit("newMessage");
+
+            // step781: we know that io.emit sends it to all online users , but we want to send it only to the reciever user ; so we can use the below code to send it only to the reciever user.
+
+            // step782: so the event name is "newMessage" and we are sending the newMessage object with it here below ; so if user is online , send the message ; so now : On the frontend, the receiver’s client will be listening for "newMessage", and as soon as it gets this event → it updates the chat in real-time without refreshing.
+
+            // step783: see the next steps in the useChatStore.js file now there in frontend.
+            io.to(recieverSocketId).emit("newMessage", newMessage);
+        }
 
         // step289: and then send the message as response here below ; with status code 201 which means something was created successfully.
         res.status(201).json(newMessage)
