@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js'
 import { useChatStore } from '../store/useChatStore.js'
 import { useEffect } from 'react'
@@ -13,12 +13,29 @@ function ChatContainer() {
   const {authUser} = useAuthStore();
   const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } = useChatStore();
 
+  // step696: lets create the reference of messageEndRef here below using the useRef hook here below.
+  const messageEndRef = useRef(null);
+
   // step592: now lets useEffect to load the messages when the selectedUser or the getMessagesByUserId function changes here below.
   useEffect(() => {
 
     // step593: make sure to run this only if the selectedUser is not null here below i.e. initially when page is refreshed , no user is clicked and selected , so in that case we don't want to get the messages here below , so run this only if the selectedUser is not null.
     if(selectedUser) getMessagesByUserId(selectedUser._id);
   }, [selectedUser , getMessagesByUserId]);
+
+  // step697: now this code below will make the chat scroll down to the bottom when a new message is sent here below.
+  useEffect(() => {
+    // step698: we put if statement below because we had set its initial value to "null" and so Skip it on the first render (or if for some reason the ref hasn’t attached yet) ; as then : null.current makes no sense but error only.
+    if(messageEndRef.current){
+      messageEndRef.current.scrollIntoView({behavior: "smooth"});
+    }
+
+    // step699: this will run and scroll to bottom div there : whenever you receive/send a new message and messages state updates, this effect runs again.
+
+    // step700: thus overall when we send a new message or receive a new message , this code will run and scroll to bottom div there automatically.
+
+    // step701: see the next steps in step702.txt file now there.
+  }, [messages]);
 
   return (
     <>
@@ -93,6 +110,9 @@ function ChatContainer() {
                 </div>
               </div>
             ))}
+
+            {/* step695:now lets create a reference div here after all the messages in the chat container , which will be used to automatically scroll the messages to this reference div when a message is sent so that the CHAT CONTAINER AUTOMATICALLY SCROLLS DOWN TO THIS DIV AT END OF THE MESSAGES ; so : ONCE A MESSAGE IS SENT , THE CHAT CONTAINER AUTOMATICALLY SCROLLS DOWN TO THIS DIV. */}
+            <div ref={messageEndRef} />
 
           </div>
         ) :

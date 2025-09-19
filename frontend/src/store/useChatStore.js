@@ -2,6 +2,7 @@
 import { create } from "zustand"
 import { axiosInstance } from "../lib/axios"
 import toast from "react-hot-toast"
+import { useAuthStore } from "./useAuthStore"
 
 // step466: then lets create the store that can be imported in any of the components in the app now there.
 export const useChatStore = create((set , get) => ({
@@ -109,6 +110,69 @@ export const useChatStore = create((set , get) => ({
         finally{
             // step585: now lets hide the loading state here below as we have got the messages now.
             set({isMessagesLoading: false});
+        }
+    },
+
+    // step650: lets create the sendMessage function here below ; using the messageData containing text and image to be sent to the user here below.
+    sendMessage: async(messageData) =>{
+
+        // step652: now lets get access of the selectedUser using the get() method here below  so the selectedUser state would have been updated with the details of the user we clicked or selected ; so in that statw we would be having the details of the user to whom we want to send the message ; so we use get method to get the current value of the state here below.
+
+        // step655: we also thus here get the current messages array with all the current messages first here below.
+        const {selectedUser , messages} = get();
+
+        // step686: lets first try to get the authenticated user state from the another zustand store we had ; using getState function.
+
+        // step687: so "getState" is used to get a state from one zustand store into another zustand store here below.
+        const {authUser} = useAuthStore.getState();
+
+        // step688: now lets try to get a temporary id here below ; which will generate a random id for the dummy message that we are sending here below.
+        const tempId = `temp-${Date.now()}`
+
+        // step689: now lets create the fake message object here below , with all the fields that were there in the original messages of database too ; but now we want to show the UI of the sent message before , without waiting for server to send a response ; we are just creating the message here below ; before the try-catch block where the request to server is being sent.
+        const optimisticMessage = {
+            _id: tempId,
+            senderId: authUser._id,
+            recieverId: selectedUser._id,
+            text: messageData.text,
+            image: messageData.image,
+            createdAt: new Date().toISOString(), // new Date() is an object, not a string. If you try to save it to a database, JSON, or send it via API, it will be converted in inconsistent ways ;.toISOString() ensures it’s always stored in a consistent, universal format.
+            
+            isOptimistic: true, //flag to identify optimistic message (optional)
+        }
+
+        // step690: so we don’t wait for server ; Instead, we immediately push a fake message (optimisticMessage) into the messages array ; here below ; where "..." spread operator first spreads the existing messages array and then adds the optimisticMessage to it ; and thus updates the messages array with new message added to it at end too here below.
+
+        // step691: so after the request has been made : You call the /messages/send/:id API with the real message data in the try-catch block below this ; so here : you update the frontend immediately as if the action succeeded, without waiting for the server response ;so as soon as send is clicked ; the message will be seen in the UI there ; and then server will respond with success or error in try-catch block there.
+        set({messages: [...messages, optimisticMessage]})
+
+        try {
+            // step651: now here we will be sending the messageData using POST request to the endpoint where we sent the message ; so remember we created an endpoint "/messages/send/:id" so we will be having the "id" of the user whom we want to send the message to here below.
+
+            // step653: after that we access the _id from that object here below.
+
+            // step685: currently once we get a message , we are awaiting till we get a reponse and then we are updating the UI using "set" below ; but now we want to update the UI as soon as the message is sent i.e. even before the backend is updated ; i.e. show in UI of frontend that message has been sent befor eonly immediately so that user doesn't feel any delay ; and after that send the request to backedn below ; so lets try to make our app optimal here below.
+
+            const res = await axiosInstance.post(`/messages/send/${selectedUser._id}` , messageData);
+
+            // step654: now lets try to update the "messages" array state here below.
+
+            // step656: now we will add the new message to the messages array here below ; so use the concat method which adds the new message at the end of the array here below.
+            set({messages: messages.concat(res.data)});
+
+        } catch (error) {
+
+            // step692: now we were showing the latest sent message in the UI as soon as user sends it without waiting for backend to send a response ; but now if backend sends a error response back ; then that message should be removed from UI ; so lets remove it from UI here below ; so we set the messages state to the previous messages state without concatinating it in the try block that we had in try block "concat" without that only we set the messages state to previous messages state only in the database.
+
+            // step693: now if we change the /send endpoint above to something like /send124 : backend will throw an error in response ; run this catch block ; remove that messaeg from UI immeditaley and show toast error there ; you can check it out to see how working there too now.
+
+            // step694: see the next steps in the chatContainer.jsx file now there.
+            set({messages : messages})
+
+            // step657: now lets use conditional rendering here below to show the error toast if the error response is not undefined because if error itself is undefined how will you do error.response , etc. , otherwise we will show the default error message here below.
+
+            // step658: see the next steps in MessageInput.jsx file now there.
+            toast.error(error.response?.data?.message || "Something went wrong")
         }
     }
 }))

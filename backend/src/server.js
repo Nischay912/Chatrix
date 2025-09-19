@@ -47,7 +47,9 @@ const PORT = ENV.PORT || 3000
 // step66: so the data entered by user will be sent to server her under req.body and so express middleware will help us to get access of the data entered by the user there.
 
 // step67: see next steps in auth.controller.js file now there.
-app.use(express.json())
+
+// WE HAVE SET THE LIMIT TO 5MB ; By default, Express limits the JSON body size to 100kb. Here, you are overriding that limit to 5 megabytes ; so now payload of larger sizes can be handled too i.e. large sized images can now be uploaded and sent easily too now.
+app.use(express.json({limit:"5mb"}))
 app.use(cors({origin: ENV.CLIENT_URL, credentials: true}))
 
 // step179: let suse the cookie-parser package to help us get access of the cookies sent by the user there ; so we parse the cookie into a JSON object using this package.
