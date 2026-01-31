@@ -32,12 +32,6 @@ function ProfileHeader() {
     // step537: if the file is not selected somehow , then we just return back.
     if(!file) return;
 
-    // JPG only validation if needed
-  if (file.type !== "image/jpeg") {
-    alert("Only JPG images are allowed");
-    return;
-  }
-
     // step538: else we can use a javascript api named "FileReader" that helps us to read the files selected from an <input type="file">.
     const reader = new FileReader();
     // step539: then we can use the readAsDataURL method to read the file here below.
@@ -129,8 +123,7 @@ function ProfileHeader() {
             <input type="file" 
 
             // step511: it will accpet only files starting with "image/*" so that only images can be selected there.
-              // accept='image/*' 
-              accept = ".jpg, .jpeg, image/jpeg"
+              accept='image/*'
 
               // step512: now lets have a refernce made to point to the input file here below.
               ref={fileInputRef}        
