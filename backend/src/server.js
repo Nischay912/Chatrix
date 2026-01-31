@@ -45,7 +45,7 @@ const __dirname = path.resolve()
 // step19: now lets save the port value from env file in PORT variable and if its not defined lets set it to 3000 by default.
 const PORT = ENV.PORT || 3000
 
-// step65: now lets use the express middleware to help get access of the fields inputs that user sends during signup and login to the server there.
+// step65: now lets use the express middleware to help get access of the fields inputs that user sexnds during signup and login to the server there.
 
 // step66: so the data entered by user will be sent to server her under req.body and so express middleware will help us to get access of the data entered by the user there.
 
