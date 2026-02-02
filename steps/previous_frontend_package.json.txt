@@ -1,0 +1,47 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
+    "react-router": "^7.9.1",
+    "socket.io-client": "^4.8.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.21",
+    "daisyui": "^4.12.24",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "vite": "^7.1.2"
+  }
+}
+
+We had these earlier but we changed it to whats now in package.json of frontend because -
+
+When we first created the frontend project, our package.json followed the normal development structure where only runtime libraries like React, Axios, Zustand, and Socket.IO client were placed inside dependencies, and all build tools such as Vite, Tailwind CSS, PostCSS, DaisyUI, and the Vite React plugin were kept inside devDependencies. This setup works perfectly during local development because running npm install installs both dependencies and devDependencies, so all tools are available. Therefore, commands like npm run dev and npm run build worked without any issues on our local machine.
+
+However, when we deployed the project to Render, the build started failing. The reason is that Render installs packages using npm install --production, which installs only dependencies and completely skips devDependencies. Since Vite and other build tools were inside devDependencies, Render could not find them during the production build. This caused errors such as “vite not found”, “@vitejs/plugin-react not found”, and “tailwindcss not found”, because these tools are required during the vite build step but were never installed on the server.
+
+To fix this, we changed the structure of package.json by moving all build-related tools from devDependencies to dependencies. Specifically, we moved Vite, the Vite React plugin, Tailwind CSS, PostCSS, Autoprefixer, and DaisyUI into dependencies because they are necessary to compile and build the project before deployment. At the same time, we kept development-only tools like ESLint, TypeScript types, and lint plugins inside devDependencies since they are only needed for coding and editor support and are not required on the production server.
+
+After making this change, the project works correctly in both environments. On localhost, everything still works because npm install installs all packages anyway. On Render, the production install now includes all necessary build tools, allowing vite build to run successfully and generate the final dist folder. The final rule we follow is simple: anything required during the build or compilation process must be placed in dependencies, and only development helpers should stay in devDependencies. This ensures smooth deployments on hosting platforms while keeping local development unaffected.
